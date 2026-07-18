@@ -4,10 +4,15 @@
 - [x] Project scaffolding (CMake + SFML 3.0 + basic main.cpp)
 - [x] `.clinerules` created with development guidelines
 - [x] Memory Bank initialized (productContext, activeContext, systemPatterns, progress)
+- [x] Move source files to `src/` directory
+- [x] Refactor CMakeLists.txt to use `src/` structure
+- [x] Basic SFML window (800×600) with black background
+- [x] Game class with main loop (`run()` → `process_events()` / `update()` / `render()`)
+- [x] Project renamed to `space-shooter`
+- [x] Branch `feature/basic-project-setup` created and committed
 
 ## In Progress
-- [ ] Move source files to `src/` directory
-- [ ] Refactor CMakeLists.txt to use `src/` structure
+- [ ] Player sprite rendering (via image-gen MCP)
 
 ## Backlog (planned features)
 - [ ] ECS core: Entity Manager, Component storage, System base
