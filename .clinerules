@@ -7,6 +7,7 @@
 - Every class and function must have clear documentation comments (/// in header).
 - Follow consistent naming: CamelCase for classes, snake_case for functions/variables.
 - All game logic must be separated from rendering (ECS-like design preferred).
+- All text in project must be in English
 
 ## Development Process
 - Before writing any code, you must present a plan in Plan Mode and wait for user approval.

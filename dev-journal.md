@@ -1,0 +1,24 @@
+# Dev Journal — 2026-07-18
+
+## Summary
+Initial project setup for the 2D space shooter (SFML 3.0, C++17).
+
+## Done
+- Created `CMakeLists.txt` and project has been configured:
+- Created `.clinerules` and established development workflow (Plan Mode → feature branch → build-test → commit)
+- Initialized **Memory Bank** with 4 files:
+  - `productContext.md` — project overview, goals, planned features
+  - `activeContext.md` — current focus, next steps
+  - `systemPatterns.md` — ECS-like architecture, naming conventions, cross-platform strategy
+  - `progress.md` — completed/in-progress/backlog tracking
+- Created branch `feature/basic-project-setup`:
+    - Added sources into `src/` directory
+    - Added **Game class** (`Game.hpp` / `Game.cpp`) with:
+        - Window creation (800×600, "Space Shooter") with black background, close-event handling
+        - Main game loop (`run()` → `process_events()` / `update()` / `render()`)
+        - Stub methods for future game logic
+
+## Next
+- Implement ECS core (Entity Manager, Component storage)
+- Add player ship entity with movement
+- Set up asset pipeline via image-gen MCP
