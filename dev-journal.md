@@ -17,6 +17,13 @@ Initial project setup for the 2D space shooter (SFML 3.0, C++17).
         - Window creation (800×600, "Space Shooter") with black background, close-event handling
         - Main game loop (`run()` → `process_events()` / `update()` / `render()`)
         - Stub methods for future game logic
+- Created branch `feature/mcp-git-ops`:
+    - Implemented custom **MCP git-ops server** (`mcp-servers/git_ops/server.py`) with tools:
+        - `status` — show working tree status
+        - `create_branch` — create & switch to a new branch
+        - `commit` — stage all changes and commit with a message
+        - `push` — push current branch to origin
+    - Updated `.clinerules` to mandate using git-ops MCP for all git operations
 
 ## Next
 - Implement ECS core (Entity Manager, Component storage)
