@@ -22,6 +22,10 @@
 - mcp-servers/ : custom MCP server implementations
 - .github/workflows/ : CI configuration
 
+## MCP Servers
+- git-ops: use for all git operations (branch creation, commits, pushes).
+- You MUST use git-ops to create feature branches and commit at each logical step.
+
 ## When Assets Are Needed
 - If you need an image asset, DO NOT create placeholder code. Instead, request generation via the image-gen MCP server with a detailed description.
 - Sound effects can be generated procedurally or via an external API; if not available, use silent stubs.
