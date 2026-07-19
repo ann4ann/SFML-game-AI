@@ -12,7 +12,11 @@ set(SFML_DIR "C:/msys64/ucrt64/lib/cmake/SFML")
 # Find SFML 3.0 (MinGW)
 find_package(SFML 3.0 COMPONENTS Graphics Window System Audio Network REQUIRED)
 
-add_executable(space-shooter src/main.cpp src/Game.cpp)
+add_executable(space-shooter
+    src/main.cpp
+    src/Game.cpp
+    src/systems/PlayerMovementSystem.cpp
+)
 
 # Add include directories
 target_include_directories(space-shooter PRIVATE src)

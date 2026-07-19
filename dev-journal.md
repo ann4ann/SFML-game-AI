@@ -40,7 +40,34 @@ Added a simple FPS counter displayed in the top-left corner of the game window.
     - Added a description of the workflow for the Feature development
     - Added project build rules (C++)
 
+## 2026-07-19 — Player Entity & Movement System
+
+### Summary
+Implemented ECS-lite core and player movement feature. Player is a cyan rectangle at the bottom of the screen, controllable with arrow keys and WASD, clamped to screen bounds.
+
+### Done
+- Created branch `feature/player-movement`
+- Added ECS core:
+  - `Component.hpp` — base struct + type ID generation
+  - `Entity.hpp` — lightweight entity ID wrapper
+  - `System.hpp` — abstract base class with `update(float dt)`
+  - `ComponentManager.hpp` — type-erased component pools with registration, add/get/remove/has
+- Added components: `Transform`, `Velocity`, `Shape`, `PlayerTag`
+- Added `PlayerMovementSystem`:
+  - Reads keyboard state (arrows + WASD)
+  - Normalizes diagonal movement
+  - Updates position with delta time
+  - Clamps player inside screen bounds using shape half-size
+- Integrated into `Game` class:
+  - Component registration in constructor
+  - Player creation (`create_player()`) centered at bottom
+  - System registration in systems vector
+  - Player rendering in `render()` via Shape component
+- Updated `CMakeLists.txt` with new source file
+- Build verified with MinGW (zero errors)
+
 ## Next
-- Implement ECS core (Entity Manager, Component storage)
-- Add player ship entity with movement
+- Add enemy spawning system
+- Add bullet system
+- Add collision detection
 - Set up asset pipeline via image-gen MCP

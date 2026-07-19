@@ -11,15 +11,14 @@
 - [x] Project renamed to `space-shooter`
 - [x] Branch `feature/basic-project-setup` created and committed
 - [x] FPS counter in top-left corner (sf::Text, Roboto font, green, updated every second)
+- [x] ECS core: entity.hpp, component.hpp, components.hpp, system.hpp
+- [x] InputSystem — keyboard controls for player
+- [x] PlayerMovementSystem — update positions
 
 ## In Progress
-- [ ] ECS core: entity.hpp, component.hpp, components.hpp, system.hpp
-- [ ] InputSystem — keyboard controls for player
 - [ ] EnemySpawnSystem — spawn enemies from top
 - [ ] BulletLifetimeSystem — remove expired bullets
-- [ ] MovementSystem — update positions
 - [ ] CollisionSystem — bullet-enemy interaction
-- [ ] RenderSystem — draw all sprites
 - [ ] PlayScene — ties all systems together, owns ECS world
 - [ ] Update Game to use PlayScene + GameState
 
