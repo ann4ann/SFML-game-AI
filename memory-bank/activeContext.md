@@ -8,6 +8,7 @@ ECS-lite architecture planned and approved — directories created, next: implem
 - `src/` directory structure with `main.cpp`, `Game.hpp`, `Game.cpp`
 - Game class with main loop: black background window (800×600), close-event handling
 - FPS counter in top-left corner (green text, Roboto font, updated every second)
+- **FPS counter** in top-left corner (green text, Roboto font, updated every second)
 - Successful build and link
 
 ## Active Decisions

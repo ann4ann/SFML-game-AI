@@ -10,6 +10,7 @@
 - [x] Game class with main loop (`run()` → `process_events()` / `update()` / `render()`)
 - [x] Project renamed to `space-shooter`
 - [x] Branch `feature/basic-project-setup` created and committed
+- [x] FPS counter in top-left corner (sf::Text, Roboto font, green, updated every second)
 
 ## In Progress
 - [ ] ECS core: entity.hpp, component.hpp, components.hpp, system.hpp
