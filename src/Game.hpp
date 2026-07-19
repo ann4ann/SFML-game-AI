@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 /// @brief Main game class that manages the game loop and state transitions.
 class Game {
@@ -27,6 +28,13 @@ private:
 
     /// @brief Renders the current frame.
     void render();
+
+    // --- FPS counter ---
+    sf::Font font_;                         ///< Font used for FPS text.
+    sf::Text fps_text_{font_};              ///< Text object displaying FPS (initialized with font ref).
+    sf::Clock fps_clock_;                   ///< Clock to measure elapsed time.
+    unsigned int frame_count_ = 0;          ///< Frame counter for FPS calculation.
+    float fps_ = 0.0f;                      ///< Current frames per second value.
 };
 
 #endif // GAME_HPP

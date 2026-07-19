@@ -10,10 +10,19 @@
 - All text in project must be in English
 
 ## Development Process
-- Before writing any code, you must present a plan in Plan Mode and wait for user approval.
-- After approval, create a feature branch using the git-ops MCP server.
+- The unit of development process is a Feature Development.
 - At the end of each feature, run the build-test MCP server to verify compilation and tests.
 - Commit messages must follow Conventional Commits: feat:, fix:, docs:, test:, etc.
+
+## Feature Development
+- You MUST use MCP git-ops to create feature branches before starting feature development
+- You MUST use MCP git-ops to commit at each logical step
+- After a feature is completed:
+    - request confirmation of feature completion. If the work is complete, perform the following steps
+    - update the dev-journal.md file to include a development summary for this feature.
+    - in memory-bank, update progress.md to include the implemented feature. Also update activeContext.md.
+    - use MCP git-ops for the final commit
+    - use MCP git-ops to push the branch to the repository
 
 ## Project Structure
 - src/ : source files (.cpp, .hpp)
@@ -22,9 +31,20 @@
 - mcp-servers/ : custom MCP server implementations
 - .github/workflows/ : CI configuration
 
+## Build project
+- if you need to build C++ code, use these two commands in order:
+    ```PowerShell
+    Set-Location D:\Projects\VibeProjects\SFMLgame; Remove-Item -Recurse -Force build -ErrorAction SilentlyContinue; $env:Path = "C:/msys64/ucrt64/bin;$env:Path"; cmake -B build -G "MinGW Makefiles" 2>&1
+    ```
+    ```PowerShell
+    - Set-Location D:\Projects\VibeProjects\SFMLgame; cmake --build build 2>&1
+    ```
+
 ## MCP Servers
-- git-ops: use for all git operations (branch creation, commits, pushes).
-- You MUST use git-ops to create feature branches and commit at each logical step.
+- always check the number of attributes before calling the MCP tool
+- git-ops: 
+    - use for all git operations (branch creation, commits, pushes, etc)
+    - always request user for message or name attribute value
 
 ## When Assets Are Needed
 - If you need an image asset, DO NOT create placeholder code. Instead, request generation via the image-gen MCP server with a detailed description.
