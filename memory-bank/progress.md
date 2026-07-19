@@ -10,6 +10,7 @@
 - [x] Game class with main loop (`run()` → `process_events()` / `update()` / `render()`)
 - [x] Project renamed to `space-shooter`
 - [x] Branch `feature/basic-project-setup` created and committed
+- [x] FPS counter in top-left corner (sf::Text, Roboto font, green, updated every second)
 
 ## In Progress
 - [ ] Player sprite rendering (via image-gen MCP)
