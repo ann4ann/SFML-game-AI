@@ -7,6 +7,7 @@
 #include <vector>
 #include "ecs/ComponentManager.hpp"
 #include "ecs/System.hpp"
+#include "ecs/Entity.hpp"
 
 /// @brief Main game class that manages the game loop and state transitions.
 class Game {
@@ -16,6 +17,9 @@ public:
     /// @param height Window height in pixels.
     /// @param title  Window title.
     Game(unsigned int width, unsigned int height, const std::string& title);
+
+    /// @brief Returns the next available entity ID.
+    EntityId next_entity_id() { return next_entity_id_++; }
 
     /// @brief Runs the main game loop.
     void run();
@@ -29,6 +33,7 @@ private:
     // --- ECS ---
     ComponentManager cm_;
     std::vector<std::unique_ptr<System>> systems_;
+    EntityId next_entity_id_ = 1;
 
     /// @brief Creates the player entity with required components.
     void create_player();

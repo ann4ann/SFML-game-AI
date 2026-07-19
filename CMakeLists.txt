@@ -16,6 +16,8 @@ add_executable(space-shooter
     src/main.cpp
     src/Game.cpp
     src/systems/PlayerMovementSystem.cpp
+    src/systems/EnemySpawnSystem.cpp
+    src/systems/MovementSystem.cpp
 )
 
 # Add include directories

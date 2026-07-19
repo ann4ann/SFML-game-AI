@@ -39,4 +39,15 @@ struct Shape : public Component {
 /// @brief Tag component marking an entity as the player.
 struct PlayerTag : public Component {};
 
+/// @brief Tag component marking an entity as an enemy.
+struct EnemyTag : public Component {};
+
+/// @brief Health component for entities that can take damage.
+struct Health : public Component {
+    int hp = 1;
+
+    Health() = default;
+    explicit Health(int hp_) : hp(hp_) {}
+};
+
 #endif // COMPONENTS_HPP
