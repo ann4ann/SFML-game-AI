@@ -14,9 +14,10 @@
 - [x] ECS core: entity.hpp, component.hpp, components.hpp, system.hpp
 - [x] InputSystem — keyboard controls for player
 - [x] PlayerMovementSystem — update positions
+- [x] EnemySpawnSystem — spawn enemies from top
+- [x] MovementSystem — move non-player entities by velocity
 
 ## In Progress
-- [ ] EnemySpawnSystem — spawn enemies from top
 - [ ] BulletLifetimeSystem — remove expired bullets
 - [ ] CollisionSystem — bullet-enemy interaction
 - [ ] PlayScene — ties all systems together, owns ECS world
