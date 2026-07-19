@@ -66,8 +66,31 @@ Implemented ECS-lite core and player movement feature. Player is a cyan rectangl
 - Updated `CMakeLists.txt` with new source file
 - Build verified with MinGW (zero errors)
 
+## 2026-07-19 — Enemy Spawning System
+
+### Summary
+Added enemy spawning with a dedicated ECS system. Enemies are red rectangles that appear above the screen at regular intervals and move downward.
+
+### Done
+- Created branch `feature/enemy-spawning`
+- Added components: `EnemyTag` (marker), `Health` (hit points)
+- Added `EnemySpawnSystem`:
+  - Timer-based spawning every 2 seconds
+  - Random X position (clamped to screen bounds)
+  - Spawns enemies above the top edge (Y = -height)
+  - Enemies move downward at 150 px/s
+- Added `MovementSystem`:
+  - Updates position for all entities with Transform + Velocity
+  - Skips player entity (handled by PlayerMovementSystem)
+- Updated `Game` class:
+  - Shared entity ID counter (`next_entity_id_`) to prevent ID collisions
+  - Registered new components and systems
+  - Enemy rendering in `render()` via EnemyTag
+- Updated `CMakeLists.txt` with new source files
+- **Bugfix**: Fixed entity ID collision — player and enemy used separate static counters both starting at 1, causing the first enemy to overwrite the player's components
+- Build verified with MinGW (zero errors)
+
 ## Next
-- Add enemy spawning system
 - Add bullet system
 - Add collision detection
 - Set up asset pipeline via image-gen MCP

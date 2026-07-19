@@ -1,6 +1,8 @@
 #include "Game.hpp"
 #include "ecs/Components.hpp"
 #include "systems/PlayerMovementSystem.hpp"
+#include "systems/EnemySpawnSystem.hpp"
+#include "systems/MovementSystem.hpp"
 
 Game::Game(unsigned int width, unsigned int height, const std::string& title)
     : window_(sf::VideoMode({width, height}), title)
@@ -28,6 +30,8 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     cm_.register_component<Velocity>();
     cm_.register_component<Shape>();
     cm_.register_component<PlayerTag>();
+    cm_.register_component<EnemyTag>();
+    cm_.register_component<Health>();
 
     // --- Create player ---
     create_player();
@@ -38,13 +42,22 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         static_cast<float>(screen_width_),
         static_cast<float>(screen_height_),
         300.0f));
+
+    systems_.push_back(std::make_unique<EnemySpawnSystem>(
+        cm_,
+        static_cast<float>(screen_width_),
+        static_cast<float>(screen_height_),
+        &next_entity_id_,
+        2.0f,   // spawn every 2 seconds
+        150.0f  // downward speed
+    ));
+
+    systems_.push_back(std::make_unique<MovementSystem>(cm_));
 }
 
 void Game::create_player()
 {
-    // Player entity ID starts at 1 (0 = INVALID_ENTITY)
-    static EntityId next_id = 1;
-    Entity player(next_id++);
+    Entity player(next_entity_id());
 
     // Center the player at the bottom of the screen
     float playerWidth  = 50.0f;
@@ -108,17 +121,36 @@ void Game::render()
     window_.clear(sf::Color::Black);
 
     // --- Draw player ---
-    auto playerIds = cm_.get_entities_with_component<PlayerTag>();
-    if (!playerIds.empty())
     {
-        Entity player(playerIds[0]);
-        auto* transform = cm_.get_component<Transform>(player);
-        auto* shape     = cm_.get_component<Shape>(player);
-
-        if (transform && shape)
+        auto playerIds = cm_.get_entities_with_component<PlayerTag>();
+        if (!playerIds.empty())
         {
-            shape->rect.setPosition(transform->position);
-            window_.draw(shape->rect);
+            Entity player(playerIds[0]);
+            auto* transform = cm_.get_component<Transform>(player);
+            auto* shape     = cm_.get_component<Shape>(player);
+
+            if (transform && shape)
+            {
+                shape->rect.setPosition(transform->position);
+                window_.draw(shape->rect);
+            }
+        }
+    }
+
+    // --- Draw enemies ---
+    {
+        auto enemyIds = cm_.get_entities_with_component<EnemyTag>();
+        for (auto eid : enemyIds)
+        {
+            Entity enemy(eid);
+            auto* transform = cm_.get_component<Transform>(enemy);
+            auto* shape     = cm_.get_component<Shape>(enemy);
+
+            if (transform && shape)
+            {
+                shape->rect.setPosition(transform->position);
+                window_.draw(shape->rect);
+            }
         }
     }
 
