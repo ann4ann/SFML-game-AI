@@ -25,6 +25,21 @@ Initial project setup for the 2D space shooter (SFML 3.0, C++17).
         - `push` — push current branch to origin
     - Updated `.clinerules` to mandate using git-ops MCP for all git operations
 
+## 2026-07-19 — FPS Counter
+
+### Summary
+Added a simple FPS counter displayed in the top-left corner of the game window.
+
+### Done
+- Created branch `feature/fps-counter`
+    - Added FPS counter members to `Game` class (`sf::Font`, `sf::Text`, `sf::Clock`, frame counter)
+    - Loaded `assets/fonts/Roboto.ttf` in the constructor
+    - FPS text rendered in green at position (10, 10), updated once per second
+    - Build verified with MinGW (zero errors)
+- Updated `.clinerules`:
+    - Added a description of the workflow for the Feature development
+    - Added project build rules (C++)
+
 ## Next
 - Implement ECS core (Entity Manager, Component storage)
 - Add player ship entity with movement

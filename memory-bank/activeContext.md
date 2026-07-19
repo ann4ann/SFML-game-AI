@@ -7,6 +7,7 @@ Implementing player sprite rendering (via image-gen MCP).
 - CMake project `space-shooter` with SFML 3.0 (Graphics, Window, System, Audio, Network)
 - `src/` directory structure with `main.cpp`, `Game.hpp`, `Game.cpp`
 - Game class with main loop: black background window (800×600), close-event handling
+- **FPS counter** in top-left corner (green text, Roboto font, updated every second)
 - Successful build and link
 
 ## Active Decisions
@@ -28,3 +29,4 @@ Implementing player sprite rendering (via image-gen MCP).
 - Must ensure cross-platform compatibility from the start
 - Need to plan ECS architecture before implementing core game logic
 - Memory Bank must never be deleted (per project rules)
+- `.clinerules` updated with explicit build commands (PowerShell) and Feature Development workflow description
