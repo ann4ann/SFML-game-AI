@@ -29,6 +29,40 @@ ProcessInput() -> Update(dt) -> Render()
 - Each state owns its own ECS world and systems
 - Transitions are explicit and managed by a SceneManager
 
+### 5. Detailed ECS-lite Design (approved)
+
+#### Components (`src/ecs/components.hpp`)
+| Component | Fields | Description |
+|-----------|--------|-------------|
+| `Position` | `float x, y` | World position in pixels |
+| `Velocity` | `float vx, vy` | Speed in pixels/second |
+| `Sprite` | `sf::Sprite sprite` | SFML drawable sprite |
+| `Collider` | `float radius` | Circle collision radius |
+| `Health` | `int hp` | Hit points (<= 0 → entity removed) |
+| `Lifetime` | `float remaining` | Seconds until auto-removal (bullets) |
+| `PlayerInput` | *(marker)* | Identifies player entity |
+| `EnemyTag` | *(marker)* | Identifies enemy entities |
+| `BulletTag` | *(marker)* | Identifies bullet entities |
+
+#### Systems (`src/systems/`)
+1. **InputSystem** — reads keyboard (arrows for movement, Space to fire) → sets Velocity on Player, spawns Bullets
+2. **EnemySpawnSystem** — timer-based spawning of enemies at random X above screen
+3. **BulletLifetimeSystem** — decrements Lifetime::remaining by dt, removes expired bullets
+4. **MovementSystem** — `Position += Velocity * dt` for all entities with Position+Velocity
+5. **CollisionSystem** — circle-vs-circle check between all (Bullet, Enemy) pairs; removes bullet, damages enemy
+6. **RenderSystem** — iterates all entities with Sprite component, calls `window.draw()`
+
+#### Scene/State Management
+- `enum class GameState { Playing, Paused, GameOver }` in Game.hpp
+- PlayScene class owns ECS world (EntityManager + ComponentManager) and a vector of System pointers
+- Game::update() and Game::render() delegate to current scene's update/render based on state
+
+#### Collision Detection (Bullet vs Enemy)
+- Each Collider has a `radius`
+- CollisionSystem iterates all pairs (entity with BulletTag, entity with EnemyTag)
+- Distance check: `dx² + dy² < (r1 + r2)²`
+- On collision: decrement enemy Health, destroy bullet; if enemy Health <= 0 → destroy enemy
+
 ## Naming Conventions
 - **Classes**: `CamelCase` (e.g., `PlayerShip`, `ResourceManager`)
 - **Functions/Variables**: `snake_case` (e.g., `update_physics()`, `player_health`)

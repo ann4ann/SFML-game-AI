@@ -12,14 +12,17 @@
 - [x] Branch `feature/basic-project-setup` created and committed
 
 ## In Progress
-- [ ] Player sprite rendering (via image-gen MCP)
+- [ ] ECS core: entity.hpp, component.hpp, components.hpp, system.hpp
+- [ ] InputSystem — keyboard controls for player
+- [ ] EnemySpawnSystem — spawn enemies from top
+- [ ] BulletLifetimeSystem — remove expired bullets
+- [ ] MovementSystem — update positions
+- [ ] CollisionSystem — bullet-enemy interaction
+- [ ] RenderSystem — draw all sprites
+- [ ] PlayScene — ties all systems together, owns ECS world
+- [ ] Update Game to use PlayScene + GameState
 
 ## Backlog (planned features)
-- [ ] ECS core: Entity Manager, Component storage, System base
-- [ ] Player entity with movement (keyboard input)
-- [ ] Enemy spawning and basic AI
-- [ ] Bullet/projectile system
-- [ ] Collision detection
 - [ ] Scoring system
 - [ ] Asset pipeline: player ship texture (via image-gen MCP)
 - [ ] Asset pipeline: enemy textures
@@ -32,7 +35,6 @@
 - [ ] Particle effects (explosions, thrust)
 - [ ] CI workflow (GitHub Actions)
 - [ ] Unit tests for core systems
-- [ ] Packaging (CPack)
 
 ## Known Issues
 - No issues yet — project is in initial setup phase.
