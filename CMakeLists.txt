@@ -18,6 +18,7 @@ add_executable(space-shooter
     src/systems/PlayerMovementSystem.cpp
     src/systems/EnemySpawnSystem.cpp
     src/systems/MovementSystem.cpp
+    src/systems/BulletCleanupSystem.cpp
 )
 
 # Add include directories
