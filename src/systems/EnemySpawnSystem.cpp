@@ -1,4 +1,5 @@
 #include "EnemySpawnSystem.hpp"
+#include "Config.hpp"
 #include "ecs/Components.hpp"
 
 EnemySpawnSystem::EnemySpawnSystem(ComponentManager& cm,
@@ -31,8 +32,8 @@ void EnemySpawnSystem::update(float dt)
 void EnemySpawnSystem::spawn_enemy()
 {
     // Enemy dimensions
-    const float enemyWidth  = 40.0f;
-    const float enemyHeight = 30.0f;
+    const float enemyWidth  = config::enemy::size_x;
+    const float enemyHeight = config::enemy::size_y;
 
     // Random X position, clamped so the enemy is fully within horizontal bounds
     float x = x_dist_(rng_);
@@ -48,5 +49,5 @@ void EnemySpawnSystem::spawn_enemy()
     cm_.add_component(enemy, Velocity{sf::Vector2f{0.0f, enemy_speed_}});
     cm_.add_component(enemy, Shape{sf::Vector2f{enemyWidth, enemyHeight}, sf::Color::Red});
     cm_.add_component(enemy, EnemyTag{});
-    cm_.add_component(enemy, Health{1});
+    cm_.add_component(enemy, Health{config::enemy::hp});
 }

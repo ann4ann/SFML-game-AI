@@ -1,5 +1,6 @@
 #include <cmath>
 #include "PlayerMovementSystem.hpp"
+#include "Config.hpp"
 #include "ecs/Components.hpp"
 
 PlayerMovementSystem::PlayerMovementSystem(ComponentManager& cm,
@@ -96,7 +97,7 @@ void PlayerMovementSystem::update(float dt)
         cm_.add_component(bullet, Velocity{sf::Vector2f{0.0f, -bullet_speed_}});
         cm_.add_component(bullet, Shape{sf::Vector2f{bullet_size_, bullet_size_}, sf::Color::Yellow});
         cm_.add_component(bullet, BulletTag{});
-        cm_.add_component(bullet, Lifetime{2.0f});
+        cm_.add_component(bullet, Lifetime{config::bullet::lifetime});
     }
 }
 
