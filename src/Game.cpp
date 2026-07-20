@@ -4,6 +4,7 @@
 #include "systems/EnemySpawnSystem.hpp"
 #include "systems/MovementSystem.hpp"
 #include "systems/BulletCleanupSystem.hpp"
+#include "systems/CollisionSystem.hpp"
 
 Game::Game(unsigned int width, unsigned int height, const std::string& title)
     : window_(sf::VideoMode({width, height}), title)
@@ -61,6 +62,8 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     ));
 
     systems_.push_back(std::make_unique<MovementSystem>(cm_));
+
+    systems_.push_back(std::make_unique<CollisionSystem>(cm_));
 
     systems_.push_back(std::make_unique<BulletCleanupSystem>(
         cm_,
