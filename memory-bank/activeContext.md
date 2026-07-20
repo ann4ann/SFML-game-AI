@@ -1,7 +1,7 @@
 # Active Context
 
 ## Current Focus
-Enemy spawning system implemented. Next: bullet system and collision detection.
+Bullet shooting system implemented. Player fires yellow square bullets with Space (250ms cooldown). Bullets are auto-removed when off-screen or after 2s lifetime. Next: collision detection.
 
 ## What's Working
 - CMake project `space-shooter` with SFML 3.0 (Graphics, Window, System, Audio, Network)
@@ -14,12 +14,14 @@ Enemy spawning system implemented. Next: bullet system and collision detection.
   - `Entity.hpp` — lightweight entity ID wrapper
   - `System.hpp` — abstract base class with `update(float dt)`
   - `ComponentManager.hpp` — type-erased component pools
-- **Components:** Transform, Velocity, Shape, PlayerTag, EnemyTag, Health
-- **PlayerMovementSystem** — arrow keys / WASD, diagonal normalization, screen clamping
+- **Components:** Transform, Velocity, Shape, PlayerTag, EnemyTag, Health, BulletTag, Lifetime
+- **PlayerMovementSystem** — arrow keys / WASD, diagonal normalization, screen clamping, **Space to fire bullets (250ms cooldown)**
 - **Player entity** — cyan rectangle at bottom center of screen
 - **EnemySpawnSystem** — timer-based spawning of red rectangles above screen, moving downward at 150 px/s
 - **MovementSystem** — updates position for all non-player entities with Transform + Velocity
-- **Shared entity ID counter** in Game (`next_entity_id_`) prevents ID collisions between player and enemies
+- **BulletCleanupSystem** — removes bullets that exit the top of the screen or exceed 2s lifetime
+- **Bullet rendering** — yellow 8×8 squares drawn via BulletTag
+- **Shared entity ID counter** in Game (`next_entity_id_`) prevents ID collisions between player, enemies, and bullets
 
 ## Active Decisions
 - Project structure layout follows `.clinerules`: src/, assets/, memory-bank/, mcp-servers/, .github/workflows/
@@ -27,17 +29,15 @@ Enemy spawning system implemented. Next: bullet system and collision detection.
 - All text in project must be in English
 - Player sprite will be generated via image-gen MCP server (no placeholder code)
 - **ECS-lite plan (updated):**
-  - **Components:** Transform, Velocity, Shape, PlayerTag, EnemyTag, BulletTag, Health, Lifetime, Collider
-  - **Systems:** PlayerMovementSystem, EnemySpawnSystem, BulletLifetimeSystem, MovementSystem, CollisionSystem, RenderSystem
+  - **Components:** Transform, Velocity, Shape, PlayerTag, EnemyTag, BulletTag, Health, Lifetime
+  - **Systems:** PlayerMovementSystem, EnemySpawnSystem, BulletCleanupSystem, MovementSystem, CollisionSystem, RenderSystem
   - **Entities:** Player (ID 1), Enemy (dynamic), Bullet (dynamic)
-  - **Collision:** Circle-vs-circle, Bullet vs Enemy
+  - **Collision:** Bullet vs Enemy (next feature)
   - **State management:** `enum class GameState { Playing, Paused, GameOver }` in Game
 
 ## Next Steps
-1. BulletLifetimeSystem — remove expired bullets
-2. CollisionSystem — bullet-enemy interaction
-3. PlayScene — ties all systems together, owns ECS world
-4. Update Game to use PlayScene + GameState
+1. CollisionSystem — bullet-enemy interaction
+2. PlayScene — ties all systems together, owns ECS world
 
 ## Current Considerations
 - SFML 3.0 API differs from SFML 2.x (new event system, sf::Vector2f changes)

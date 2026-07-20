@@ -90,7 +90,29 @@ Added enemy spawning with a dedicated ECS system. Enemies are red rectangles tha
 - **Bugfix**: Fixed entity ID collision — player and enemy used separate static counters both starting at 1, causing the first enemy to overwrite the player's components
 - Build verified with MinGW (zero errors)
 
+## 2026-07-20 — Bullet Shooting System
+
+### Summary
+Player can now shoot yellow square bullets with the Space key, with a cooldown of 250ms. Bullets are automatically removed when they fly off the top of the screen or after 2 seconds lifetime.
+
+### Done
+- Created branch `feature/bullet-shooting`
+- Added components: `BulletTag` (marker), `Lifetime` (auto-removal timer)
+- Modified `PlayerMovementSystem`:
+  - Added shooting logic triggered by Space key
+  - Cooldown timer (0.25s) prevents spam — max 4 shots/sec
+  - Bullets spawn just above the player, moving upward at 500 px/s
+  - Bullet size: 8×8 px, yellow color
+- Added `BulletCleanupSystem`:
+  - Removes bullets that exit the top of the screen (position.y + half-height < 0)
+  - Decrements lifetime each frame and removes expired bullets
+  - Cleans up all bullet components (Transform, Velocity, Shape, BulletTag, Lifetime)
+- Updated `Game` class:
+  - Registered BulletTag and Lifetime components
+  - Added BulletCleanupSystem to systems list
+  - Renders bullets in `render()` via BulletTag
+- Updated `CMakeLists.txt` with new source file
+- Build verified with MinGW (zero errors)
+
 ## Next
-- Add bullet system
 - Add collision detection
-- Set up asset pipeline via image-gen MCP
