@@ -1,47 +1,23 @@
 # Progress
 
-## Completed
-- [x] Project scaffolding (CMake + SFML 3.0 + basic main.cpp)
-- [x] `.clinerules` created with development guidelines
-- [x] Memory Bank initialized (productContext, activeContext, systemPatterns, progress)
-- [x] Move source files to `src/` directory
-- [x] Refactor CMakeLists.txt to use `src/` structure
-- [x] Basic SFML window (800×600) with black background
-- [x] Game class with main loop (`run()` → `process_events()` / `update()` / `render()`)
-- [x] Project renamed to `space-shooter`
-- [x] Branch `feature/basic-project-setup` created and committed
-- [x] FPS counter in top-left corner (sf::Text, Roboto font, green, updated every second)
-- [x] ECS core: entity.hpp, component.hpp, components.hpp, system.hpp
-- [x] InputSystem — keyboard controls for player
-- [x] PlayerMovementSystem — update positions + shooting (Space, 250ms cooldown)
-- [x] EnemySpawnSystem — spawn enemies from top
-- [x] MovementSystem — move non-player entities by velocity
-- [x] BulletCleanupSystem — remove bullets off-screen or expired
-- [x] BulletTag and Lifetime components
-
 ## In Progress
-- [ ] CollisionSystem — bullet-enemy interaction
-- [ ] PlayScene — ties all systems together, owns ECS world
+- [ ] PlayScene — extract ECS from Game into dedicated scene, prepare state machine
 
-## Backlog (planned features)
-- [ ] Scoring system
-- [ ] Asset pipeline: player ship texture (via image-gen MCP)
-- [ ] Asset pipeline: enemy textures
-- [ ] Asset pipeline: background / starfield
-- [ ] Sound effects (procedural or via API)
-- [ ] Main menu scene
-- [ ] Game Over / Restart flow
-- [ ] Multiple levels / difficulty scaling
-- [ ] Boss battles
-- [ ] Particle effects (explosions, thrust)
-- [ ] CI workflow (GitHub Actions)
-- [ ] Unit tests for core systems
+## Completed
+- [x] Project scaffolding (CMake + SFML 3.0)
+- [x] Game class with main loop + FPS counter
+- [x] ECS core (ComponentManager, Entity, System)
+- [x] PlayerMovementSystem (movement + Space to fire)
+- [x] EnemySpawnSystem (timer-based, random X)
+- [x] MovementSystem (velocity * dt for non-player)
+- [x] CollisionSystem (bullet vs enemy AABB, deferred removal)
+- [x] BulletCleanupSystem (off-screen + lifetime)
+
+## Backlog
+1. Scoring system
+2. Asset pipeline (textures, sounds)
+3. Main menu / Game Over scenes
 
 ## Known Issues
-- No issues yet — project is in initial setup phase.
-
-## Notes
-- SFML 3.0 uses new event API (`event->is<sf::Event::Closed>()`) — different from SFML 2.x
-- All project text must be in English per `.clinerules` rules
-- Assets should be requested via image-gen MCP server, not coded as placeholders
-- Build-test MCP server must be run after every significant change
+- Entity without all components (e.g., Shape missing) silently skipped in render — no error feedback
+- CollisionSystem O(n*m) per frame — acceptable for current scale, may need spatial hash later

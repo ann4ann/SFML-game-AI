@@ -114,5 +114,26 @@ Player can now shoot yellow square bullets with the Space key, with a cooldown o
 - Updated `CMakeLists.txt` with new source file
 - Build verified with MinGW (zero errors)
 
+## 2026-07-20 — Collision System (Bullet vs Enemy)
+
+### Summary
+Added collision detection between bullets and enemies using SFML 3.0 AABB intersection. Bullets are destroyed on impact; enemies take damage (Health -1) and are destroyed when HP reaches 0. Uses deferred removal pattern to avoid iterator invalidation.
+
+### Done
+- Created branch `feature/collision-system`
+- Added `CollisionSystem` (`src/systems/CollisionSystem.hpp` / `.cpp`):
+  - Uses SFML 3.0 `getGlobalBounds()` + `findIntersection()` for AABB overlap — no manual bounds calculation
+  - Two-phase update: phase 1 collects collision pairs, phase 2 applies removals (prevents iterator invalidation in unordered_map)
+  - Bullet always destroyed on collision
+  - Enemy takes damage (`Health -= 1`), fully removed when HP ≤ 0
+  - Early break: one bullet can only hit one enemy per frame
+  - Registered after MovementSystem, before BulletCleanupSystem (collision checked before off-screen cleanup)
+- Updated `Game.cpp` — added `#include` and system registration
+- Updated `CMakeLists.txt` — added `CollisionSystem.cpp`
+- Enemy HP set to 2 for testing (two hits to kill)
+- Build verified with MinGW (zero errors)
+
 ## Next
-- Add collision detection
+- PlayScene — ties all systems together, owns ECS world
+- Scoring system
+- Asset pipeline: textures, sounds
