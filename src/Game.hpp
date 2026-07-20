@@ -21,6 +21,9 @@ public:
     /// @brief Returns the next available entity ID.
     EntityId next_entity_id() { return next_entity_id_++; }
 
+    /// @brief Returns the current score (for display).
+    int score() const { return score_; }
+
     /// @brief Runs the main game loop.
     void run();
 
@@ -47,8 +50,14 @@ private:
     /// @brief Renders the current frame.
     void render();
 
-    // --- FPS counter ---
+    // --- Font (must be declared before any sf::Text) ---
     sf::Font font_;
+
+    // --- Score ---
+    int score_ = 0;
+    sf::Text score_text_{font_};
+
+    // --- FPS counter ---
     sf::Text fps_text_{font_};
     sf::Clock fps_clock_;
     unsigned int frame_count_ = 0;
