@@ -13,15 +13,15 @@
 - [x] FPS counter in top-left corner (sf::Text, Roboto font, green, updated every second)
 - [x] ECS core: entity.hpp, component.hpp, components.hpp, system.hpp
 - [x] InputSystem — keyboard controls for player
-- [x] PlayerMovementSystem — update positions
+- [x] PlayerMovementSystem — update positions + shooting (Space, 250ms cooldown)
 - [x] EnemySpawnSystem — spawn enemies from top
 - [x] MovementSystem — move non-player entities by velocity
+- [x] BulletCleanupSystem — remove bullets off-screen or expired
+- [x] BulletTag and Lifetime components
 
 ## In Progress
-- [ ] BulletLifetimeSystem — remove expired bullets
 - [ ] CollisionSystem — bullet-enemy interaction
 - [ ] PlayScene — ties all systems together, owns ECS world
-- [ ] Update Game to use PlayScene + GameState
 
 ## Backlog (planned features)
 - [ ] Scoring system

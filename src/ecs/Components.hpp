@@ -42,6 +42,17 @@ struct PlayerTag : public Component {};
 /// @brief Tag component marking an entity as an enemy.
 struct EnemyTag : public Component {};
 
+/// @brief Tag component marking an entity as a bullet.
+struct BulletTag : public Component {};
+
+/// @brief Lifetime component for auto-removal after a duration.
+struct Lifetime : public Component {
+    float remaining = 0.0f;
+
+    Lifetime() = default;
+    explicit Lifetime(float seconds) : remaining(seconds) {}
+};
+
 /// @brief Health component for entities that can take damage.
 struct Health : public Component {
     int hp = 1;

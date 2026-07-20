@@ -3,6 +3,7 @@
 #include "systems/PlayerMovementSystem.hpp"
 #include "systems/EnemySpawnSystem.hpp"
 #include "systems/MovementSystem.hpp"
+#include "systems/BulletCleanupSystem.hpp"
 
 Game::Game(unsigned int width, unsigned int height, const std::string& title)
     : window_(sf::VideoMode({width, height}), title)
@@ -32,6 +33,8 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     cm_.register_component<PlayerTag>();
     cm_.register_component<EnemyTag>();
     cm_.register_component<Health>();
+    cm_.register_component<BulletTag>();
+    cm_.register_component<Lifetime>();
 
     // --- Create player ---
     create_player();
@@ -41,7 +44,12 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         cm_,
         static_cast<float>(screen_width_),
         static_cast<float>(screen_height_),
-        300.0f));
+        &next_entity_id_,
+        300.0f,    // player speed
+        500.0f,    // bullet speed
+        0.25f,     // fire cooldown (4 shots/sec)
+        8.0f       // bullet size
+    ));
 
     systems_.push_back(std::make_unique<EnemySpawnSystem>(
         cm_,
@@ -53,6 +61,11 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     ));
 
     systems_.push_back(std::make_unique<MovementSystem>(cm_));
+
+    systems_.push_back(std::make_unique<BulletCleanupSystem>(
+        cm_,
+        static_cast<float>(screen_height_)
+    ));
 }
 
 void Game::create_player()
@@ -145,6 +158,23 @@ void Game::render()
             Entity enemy(eid);
             auto* transform = cm_.get_component<Transform>(enemy);
             auto* shape     = cm_.get_component<Shape>(enemy);
+
+            if (transform && shape)
+            {
+                shape->rect.setPosition(transform->position);
+                window_.draw(shape->rect);
+            }
+        }
+    }
+
+    // --- Draw bullets ---
+    {
+        auto bulletIds = cm_.get_entities_with_component<BulletTag>();
+        for (auto eid : bulletIds)
+        {
+            Entity bullet(eid);
+            auto* transform = cm_.get_component<Transform>(bullet);
+            auto* shape     = cm_.get_component<Shape>(bullet);
 
             if (transform && shape)
             {

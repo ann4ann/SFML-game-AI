@@ -17,6 +17,7 @@
 ## Feature Development
 - You MUST use MCP git-ops to create feature branches before starting feature development
 - You MUST use MCP git-ops to commit at each logical step
+- If work on a feature contains several logical stages, make a separate intermediate commit for each stage
 - After a feature is completed:
     - request confirmation of feature completion. If the work is complete, perform the following steps
     - update the dev-journal.md file to include a development summary for this feature.
