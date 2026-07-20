@@ -24,6 +24,13 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     fps_text_.setPosition({10.0f, 10.0f});
     fps_text_.setString("FPS: --");
 
+    // Configure Score text
+    score_text_.setFont(font_);
+    score_text_.setCharacterSize(18);
+    score_text_.setFillColor(sf::Color::White);
+    score_text_.setPosition({10.0f, 34.0f});
+    score_text_.setString("Score: 0");
+
     // Start the FPS clock
     fps_clock_.restart();
 
@@ -63,7 +70,7 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
 
     systems_.push_back(std::make_unique<MovementSystem>(cm_));
 
-    systems_.push_back(std::make_unique<CollisionSystem>(cm_));
+    systems_.push_back(std::make_unique<CollisionSystem>(cm_, &score_));
 
     systems_.push_back(std::make_unique<BulletCleanupSystem>(
         cm_,
@@ -186,6 +193,10 @@ void Game::render()
             }
         }
     }
+
+    // Draw Score
+    score_text_.setString("Score: " + std::to_string(score_));
+    window_.draw(score_text_);
 
     // Draw FPS counter
     window_.draw(fps_text_);

@@ -1,8 +1,9 @@
 #include "CollisionSystem.hpp"
 #include "ecs/Components.hpp"
 
-CollisionSystem::CollisionSystem(ComponentManager& cm)
+CollisionSystem::CollisionSystem(ComponentManager& cm, int* score)
     : cm_(cm)
+    , score_(score)
 {
 }
 
@@ -75,6 +76,8 @@ void CollisionSystem::update(float /*dt*/)
             if (enemyHealth->hp <= 0)
             {
                 remove_enemy_components(enemy);
+                // Award 10 points for destroying an enemy
+                if (score_) *score_ += 10;
             }
         }
     }

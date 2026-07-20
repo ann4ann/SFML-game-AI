@@ -12,7 +12,8 @@
 class CollisionSystem : public System {
 public:
     /// @param cm Reference to the component manager.
-    explicit CollisionSystem(ComponentManager& cm);
+    /// @param score Optional pointer to an external score counter (may be null).
+    explicit CollisionSystem(ComponentManager& cm, int* score = nullptr);
 
     /// @brief Checks all bullet-enemy pairs for AABB overlap and resolves collisions.
     /// @param dt Delta time in seconds (unused — collisions are frame-independent).
@@ -20,6 +21,7 @@ public:
 
 private:
     ComponentManager& cm_;
+    int* score_;
 
     /// @brief Removes all components associated with a bullet entity.
     /// @param entity The bullet entity to clean up.

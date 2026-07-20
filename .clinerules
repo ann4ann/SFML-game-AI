@@ -71,6 +71,11 @@
 - If you need an image asset, DO NOT create placeholder code. Instead, request generation via the image-gen MCP server with a detailed description.
 - Sound effects can be generated procedurally or via an external API; if not available, use silent stubs.
 
+## Dev Journal
+- Format: `## [Date] - [One-line summary]` → `### Done` → `### Why it matters / What's next` → `### Issues / Lessons`
+- Max 10 lines per day, English only
+- Keep entries punchy: bullet points, no prose
+
 ## Testing and CI
 - The build-test MCP server wraps CMake and CTest. Call it after every significant change.
 - Any new .cpp file must be added to CMakeLists.txt.

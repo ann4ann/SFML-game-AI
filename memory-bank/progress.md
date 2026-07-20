@@ -12,11 +12,12 @@
 - [x] MovementSystem (velocity * dt for non-player)
 - [x] CollisionSystem (bullet vs enemy AABB, deferred removal)
 - [x] BulletCleanupSystem (off-screen + lifetime)
+- [x] Scoring system — +10 points per enemy destroyed, displayed in top-left corner
 
 ## Backlog
-1. Scoring system
-2. Asset pipeline (textures, sounds)
-3. Main menu / Game Over scenes
+1. Asset pipeline (textures, sounds)
+2. Main menu / Game Over scenes
+3. Player lives / game over condition
 
 ## Known Issues
 - Entity without all components (e.g., Shape missing) silently skipped in render — no error feedback
