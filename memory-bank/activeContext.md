@@ -1,13 +1,13 @@
 # Active Context
 
 ## 🔴 CRITICAL
-- **Current task**: Scoring system implemented. CollisionSystem now accepts an `int* score_` pointer and awards +10 points per destroyed enemy. Score displayed via `sf::Text` in top-left corner.
-- **Key decision**: Score stored as `int score_` in Game, passed to CollisionSystem as a non-owning pointer. No separate UI entity yet — only 2 text elements (FPS + Score), not worth the overhead.
+- **Current task**: Game balance config extracted into `Config.hpp`. All magic numbers replaced with constexpr constants (player, bullet, enemy, score, window). No behavioural changes — same values as before.
+- **Key decision**: Single header-only `Config.hpp` with nested namespaces per domain. No runtime reload needed at this stage.
 
 ## 🟡 ACTIVE DECISIONS
-- **Score via pointer**: CollisionSystem takes `int* score` (default nullptr for safety). Only modifies through `if (score_) *score_ += 10;` — minimal coupling, keeps ECS clean.
-- **Score text update**: String is rebuilt every frame in `render()` from `score_` value — simple, no performance concern at this scale.
-- **Declaration order**: `font_` moved before any `sf::Text` members to guarantee construction order.
+- **Config.hpp location**: Root of `src/` so any `.cpp` can include it without relative path gymnastics.
+- **constexpr over const**: Values are compile-time constants — no runtime overhead, inlined by the compiler.
+- **No config file parsing**: Not justified for 5-10 values. If balance needs runtime tweaking later, we switch to JSON/ini.
 
 ## 🟢 CONTEXT
 
@@ -17,6 +17,7 @@
 - ECS: ComponentManager, Entity, System
 - **8 components**: Transform, Velocity, Shape, PlayerTag, EnemyTag, BulletTag, Health, Lifetime
 - **6 systems**: PlayerMovement, EnemySpawn, Movement, CollisionSystem (+scoring), BulletCleanup
+- **Config.hpp** with 4 namespaces: `config::window`, `config::player`, `config::bullet`, `config::enemy`, `config::score`
 - **Rendering**: PlayerTag (cyan), EnemyTag (red), BulletTag (yellow) via Shape::rect
 - **HUD**: FPS (green, top-left), Score (white, below FPS)
 

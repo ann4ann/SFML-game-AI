@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "Config.hpp"
 #include "ecs/Components.hpp"
 #include "systems/PlayerMovementSystem.hpp"
 #include "systems/EnemySpawnSystem.hpp"
@@ -53,10 +54,10 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         static_cast<float>(screen_width_),
         static_cast<float>(screen_height_),
         &next_entity_id_,
-        300.0f,    // player speed
-        500.0f,    // bullet speed
-        0.25f,     // fire cooldown (4 shots/sec)
-        8.0f       // bullet size
+        config::player::speed,
+        config::bullet::speed,
+        config::bullet::cooldown,
+        config::bullet::size
     ));
 
     systems_.push_back(std::make_unique<EnemySpawnSystem>(
@@ -64,8 +65,8 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         static_cast<float>(screen_width_),
         static_cast<float>(screen_height_),
         &next_entity_id_,
-        2.0f,   // spawn every 2 seconds
-        150.0f  // downward speed
+        config::enemy::spawn_interval,
+        config::enemy::speed
     ));
 
     systems_.push_back(std::make_unique<MovementSystem>(cm_));
@@ -83,8 +84,8 @@ void Game::create_player()
     Entity player(next_entity_id());
 
     // Center the player at the bottom of the screen
-    float playerWidth  = 50.0f;
-    float playerHeight = 30.0f;
+    float playerWidth  = config::player::size_x;
+    float playerHeight = config::player::size_y;
     float startX = (static_cast<float>(screen_width_)  - playerWidth)  / 2.0f;
     float startY =  static_cast<float>(screen_height_) - playerHeight - 20.0f;
 

@@ -12,7 +12,8 @@
 - [x] MovementSystem (velocity * dt for non-player)
 - [x] CollisionSystem (bullet vs enemy AABB, deferred removal)
 - [x] BulletCleanupSystem (off-screen + lifetime)
-- [x] Scoring system — +10 points per enemy destroyed, displayed in top-left corner
+- [x] Scoring system — +10 points per enemy, displayed in top-left corner
+- [x] Game balance config — all magic numbers extracted into `Config.hpp`
 
 ## Backlog
 1. Asset pipeline (textures, sounds)
@@ -20,5 +21,6 @@
 3. Player lives / game over condition
 
 ## Known Issues
-- Entity without all components (e.g., Shape missing) silently skipped in render — no error feedback
-- CollisionSystem O(n*m) per frame — acceptable for current scale, may need spatial hash later
+- Entity without all components silently skipped in render — no error feedback
+- CollisionSystem O(n*m) per frame — acceptable for current scale
+- Enemy HP=1 means single-bullet kill; journal initially mis-reported as 2
