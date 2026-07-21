@@ -68,7 +68,18 @@
     - always request user for message or name attribute value
 
 ## When Assets Are Needed
-- If you need an image asset, DO NOT create placeholder code. Instead, request generation via the image-gen MCP server with a detailed description.
+### Images
+- When a game entity needs a visual asset, you MUST use the image-gen MCP server to generate it.
+- Prompts for generation must be in English, detailed, and include style keywords: "pixel art", "top-down view", "transparent background preferred".
+- Always use the standard size of 256×256 pixels for game objects (player, enemies, bullets, pickups, etc.).
+- Before generating, determine the image name from the user's request context, or ask the user for the exact filename if it's not clear.
+- Save path is always `assets/imgs/` and the format is always `.png`.
+- Use the absolute path for the `path` parameter: `D:\Projects\VibeProjects\SFMLgame\assets\imgs\<filename>.png`.
+- After generating an asset, you MUST verify the file exists in assets/ before using it in code.
+- If generation fails, inform the user and propose a fallback (simple SFML shape or colored rectangle).
+- Never commit generated assets that are larger than 1 MB; if they are, request a smaller size.
+- All generated assets must be documented in a comment if they used in code: when they were generated, with what prompt.
+### Sounds
 - Sound effects can be generated procedurally or via an external API; if not available, use silent stubs.
 
 ## Dev Journal

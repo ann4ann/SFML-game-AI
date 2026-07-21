@@ -14,6 +14,7 @@
 - [x] BulletCleanupSystem (off-screen + lifetime)
 - [x] Scoring system — +10 points per enemy, displayed in top-left corner
 - [x] Game balance config — all magic numbers extracted into `Config.hpp`
+- [x] Image-gen MCP server — Gen-API Flux-2, README
 
 ## Backlog
 1. Asset pipeline (textures, sounds)

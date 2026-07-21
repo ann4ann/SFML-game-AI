@@ -29,3 +29,12 @@
 ### Issues / Lessons
 - Enemy HP was mis-typed as 2 in journal (actual value was 1 in code) — fixed now in Config.hpp
 
+## 2026-07-21 - Image-gen MCP server + asset generation rules
+### Done
+- Created image-gen MCP server (Gen-API Flux-2), server_ga.py (Hugging Face) with docstrings
+- Filled README.md with setup, tool docs, project usage guide
+- Updated .clinerules: detailed asset generation rules (size, path, verification, fallback)
+
+### Why it matters / What's next
+- Asset pipeline foundation ready: AI can now generate game sprites on demand
+

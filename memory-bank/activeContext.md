@@ -1,13 +1,13 @@
 # Active Context
 
 ## 🔴 CRITICAL
-- **Current task**: Game balance config extracted into `Config.hpp`. All magic numbers replaced with constexpr constants (player, bullet, enemy, score, window). No behavioural changes — same values as before.
-- **Key decision**: Single header-only `Config.hpp` with nested namespaces per domain. No runtime reload needed at this stage.
+- **Current feature**: Image-gen MCP server completed — Gen-API Flux-2 integration, README, docstrings, asset generation rules in .clinerules.
+- **Test asset**: `player.png` (512×512) generated successfully.
 
 ## 🟡 ACTIVE DECISIONS
-- **Config.hpp location**: Root of `src/` so any `.cpp` can include it without relative path gymnastics.
-- **constexpr over const**: Values are compile-time constants — no runtime overhead, inlined by the compiler.
-- **No config file parsing**: Not justified for 5-10 values. If balance needs runtime tweaking later, we switch to JSON/ini.
+- **Asset pipeline**: Use image-gen MCP for all visual assets (sprites, textures). Standard size 256×256 for game objects.
+- **Prompt style**: English, detailed, with keywords "pixel art", "top-down view", "transparent background preferred".
+- **Save path**: Always `assets/imgs/<name>.png` with absolute path parameter.
 
 ## 🟢 CONTEXT
 
@@ -20,7 +20,8 @@
 - **Config.hpp** with 4 namespaces: `config::window`, `config::player`, `config::bullet`, `config::enemy`, `config::score`
 - **Rendering**: PlayerTag (cyan), EnemyTag (red), BulletTag (yellow) via Shape::rect
 - **HUD**: FPS (green, top-left), Score (white, below FPS)
+- **Image-gen MCP**: server_ga.py (Gen-API Flux-2), README, fallback support
 
 ### Next Steps
 1. PlayScene — extract ECS from Game into a dedicated scene, prepare State Machine
-2. Asset pipeline — textures (via image-gen MCP), sounds
+2. Asset pipeline — generate real textures via image-gen MCP, integrate into rendering
