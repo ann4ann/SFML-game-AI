@@ -7,4 +7,6 @@ dependencies = [
     "mcp[cli]>=0.1.0",
     "asyncio",
     "gitpython>=3.1.52",
+    "python-dotenv>=1.2.2",
+    "requests>=2.34.2",
 ]
