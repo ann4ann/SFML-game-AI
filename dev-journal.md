@@ -42,5 +42,5 @@
 ### Done
 - Generated player_ship.png (cat-themed, 256×256, pixel art) via image-gen MCP
 - Replaced player rectangle with textured sprite
-
-
+- Generated enemy_drone.png (mouse-themed, 256×256, pixel art) via image-gen MCP
+- Added Sprite ECS component (shared_ptr<sf::Texture> + unique_ptr<sf::Sprite>, move-only)

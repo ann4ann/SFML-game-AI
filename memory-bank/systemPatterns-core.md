@@ -26,7 +26,8 @@ process_events() → update(dt) → render()
 |-----------|--------|------|
 | `Transform` | `sf::Vector2f position` | World position |
 | `Velocity` | `sf::Vector2f velocity` | Movement per second |
-| `Shape` | `sf::RectangleShape rect` | Visual representation |
+| `Sprite` | `shared_ptr<sf::Texture> texture`, `unique_ptr<sf::Sprite> sprite` | Textured visual (enemies) |
+| `Shape` | `sf::RectangleShape rect` | Fallback visual (player hitbox, bullets) |
 | `PlayerTag` | *(marker)* | Identifies player |
 | `EnemyTag` | *(marker)* | Identifies enemies |
 | `BulletTag` | *(marker)* | Identifies bullets |

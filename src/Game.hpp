@@ -67,6 +67,11 @@ private:
     sf::Texture player_texture_;              ///< Player ship texture.
     std::unique_ptr<sf::Sprite> player_sprite_;   ///< Player ship sprite (nullptr if fallback).
     bool        use_texture_fallback_ = true;     ///< true → draw Shape rectangle (fallback).
+
+    // --- Enemy texture ---
+    sf::Texture enemy_texture_;                    ///< Enemy drone texture.
+    std::shared_ptr<sf::Texture> enemy_tex_shared_; ///< Shared ptr for ECS (nullptr if fallback).
+    bool        use_enemy_texture_fallback_ = true; ///< true → draw Shape rectangle (fallback).
 };
 
 #endif // GAME_HPP
