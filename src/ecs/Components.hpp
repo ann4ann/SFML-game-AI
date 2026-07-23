@@ -65,6 +65,7 @@ struct Shape : public Component {
         : rect(size)
     {
         rect.setFillColor(color);
+        rect.setOrigin(size / 2.0f);
     }
 };
 

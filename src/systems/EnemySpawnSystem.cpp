@@ -52,16 +52,15 @@ void EnemySpawnSystem::spawn_enemy()
     cm_.add_component(enemy, EnemyTag{});
     cm_.add_component(enemy, Health{config::enemy::hp});
 
+    // Shape is always added for collision hitbox (CollisionSystem uses Shape for AABB).
+    // When texture is loaded, Sprite is drawn in render() instead.
+    cm_.add_component(enemy, Shape{sf::Vector2f{enemyWidth, enemyHeight}, sf::Color::Transparent});
+
     if (enemy_texture_)
     {
         // Use sprite rendering with the shared texture.
         // Generated 2026-07-23 with prompt: "A hostile, mouse-themed alien drone, pixel art,
         // top-down view, red and dark gray colors, menacing, small size, transparent background preferred"
         cm_.add_component(enemy, Sprite{enemy_texture_, sf::Vector2f{enemyWidth, enemyHeight}});
-    }
-    else
-    {
-        // Fallback to rectangle if no texture was loaded.
-        cm_.add_component(enemy, Shape{sf::Vector2f{enemyWidth, enemyHeight}, sf::Color::Red});
     }
 }

@@ -98,6 +98,7 @@ void CollisionSystem::remove_enemy_components(Entity entity)
     cm_.remove_component<Transform>(entity);
     cm_.remove_component<Velocity>(entity);
     cm_.remove_component<Shape>(entity);
+    cm_.remove_component<Sprite>(entity);
     cm_.remove_component<EnemyTag>(entity);
     cm_.remove_component<Health>(entity);
 }
