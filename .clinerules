@@ -68,19 +68,27 @@
     - always request user for message or name attribute value
 
 ## When Assets Are Needed
-### Images
-- When a game entity needs a visual asset, you MUST use the image-gen MCP server to generate it.
-- Prompts for generation must be in English, detailed, and include style keywords: "pixel art", "top-down view", "transparent background preferred".
-- Always use the standard size of 256×256 pixels for game objects (player, enemies, bullets, pickups, etc.).
-- Before generating, determine the image name from the user's request context, or ask the user for the exact filename if it's not clear.
-- Save path is always `assets/imgs/` and the format is always `.png`.
-- Use the absolute path for the `path` parameter: `D:\Projects\VibeProjects\SFMLgame\assets\imgs\<filename>.png`.
+### Common rules (all assets)
+- When a game entity needs an asset, you MUST use the appropriate MCP server to generate it.
+- Before generating, determine the filename from the user's request context, or ask the user for the exact filename if it's not clear.
+- Use the absolute path for the `path` parameter.
 - After generating an asset, you MUST verify the file exists in assets/ before using it in code.
-- If generation fails, inform the user and propose a fallback (simple SFML shape or colored rectangle).
+- If generation fails, inform the user and propose a fallback (simple SFML shape/rectangle for images, silent stub for sounds).
 - Never commit generated assets that are larger than 1 MB; if they are, request a smaller size.
-- All generated assets must be documented in a comment if they used in code: when they were generated, with what prompt.
+- All generated assets must be documented in a comment when used in code: when they were generated, with what prompt/parameters.
+
+### Images
+- Use the image-gen MCP server.
+- Prompts must be in English, detailed, and include style keywords: "pixel art", "top-down view", "transparent background preferred".
+- Always use the standard size of 256×256 pixels for game objects (player, enemies, bullets, pickups, etc.).
+- Save path is always `assets/imgs/` and the format is always `.png`.
+- Absolute path pattern: `D:\Projects\VibeProjects\SFMLgame\assets\imgs\<filename>.png`.
+
 ### Sounds
-- Sound effects can be generated procedurally or via an external API; if not available, use silent stubs.
+- Use the sound-gen MCP server.
+- Save path is always `assets/sounds/` and the format is always `.wav`.
+- Supported sound types: "laser", "explosion", "powerup", "hit", "pickup".
+- Absolute path pattern: `D:\Projects\VibeProjects\SFMLgame\assets\sounds\<filename>.wav`.
 
 ## Dev Journal
 - only 1 entry of the approved format per day
