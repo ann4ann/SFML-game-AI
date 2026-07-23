@@ -1,13 +1,13 @@
 # Active Context
 
 ## 🔴 CRITICAL
-- **Current feature**: *(none — waiting for next task)*
+- **Current feature**: Scrolling starfield background — generate starfield texture + infinite vertical scroll
 
 ## 🟡 ACTIVE DECISIONS
-- **Asset pipeline**: Use image-gen MCP for all visual assets (sprites, textures). Standard size 256×256 for game objects.
-- **Prompt style**: English, detailed, with keywords "pixel art", "top-down view", "transparent background preferred".
+- **Asset pipeline**: Use image-gen MCP for all visual assets (sprites, textures). Standard size 256×256 for game objects, 512×512 for background tile.
+- **Prompt style**: English, detailed, with keywords "pixel art", "seamless", "tiling".
 - **Save path**: Always `assets/imgs/<name>.png` with absolute path parameter.
-- **Sprite component**: ECS-based sprite rendering with `std::shared_ptr<sf::Texture>` + `std::unique_ptr<sf::Sprite>`, move-only semantics.
+- **Background scrolling**: Two sprites tiled vertically, scroll speed configurable in Config.hpp.
 
 ## 🟢 CONTEXT
 
@@ -24,5 +24,6 @@
 - **Completed**: Player sprite, Enemy sprite
 
 ### Next Steps
-1. PlayScene — extract ECS from Game into a dedicated scene, prepare State Machine
-2. Asset pipeline — generate real textures via image-gen MCP, integrate into rendering
+1. Sounds, 
+2. effects and 
+3. final visual polish
