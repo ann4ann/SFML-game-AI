@@ -1,7 +1,7 @@
 # Progress
 
 ## In Progress
-- [ ] PlayScene — extract ECS from Game into dedicated scene, prepare state machine
+- [ ] Sounds, effects and final visual polish
 
 ## Completed
 - [x] Project scaffolding (CMake + SFML 3.0)
@@ -17,11 +17,12 @@
 - [x] Image-gen MCP server — Gen-API Flux-2, README
 - [x] Player ship sprite — textured sprite (AI-generated player_ship.png)
 - [x] Enemy drone sprite — Sprite ECS component, textured enemy (AI-generated enemy_drone.png)
+- [x] Scrolling starfield background with infinite vertical scroll
 
 ## Backlog
-1. Asset pipeline (textures, sounds)
-2. Main menu / Game Over scenes
-3. Player lives / game over condition
+1. Main menu / Game Over scenes
+2. Player lives / game over condition
+3. Sound effects (procedural or API)
 
 ## Known Issues
 - Entity without all components silently skipped in render — no error feedback

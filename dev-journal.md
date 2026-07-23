@@ -38,9 +38,15 @@
 ### Why it matters / What's next
 - Asset pipeline foundation ready: AI can now generate game sprites on demand
 
-## 2026-07-23 - Player ship sprite (replace rectangle)
+## 2026-07-23 - Game sprites with AI generated Textures
 ### Done
-- Generated player_ship.png (cat-themed, 256×256, pixel art) via image-gen MCP
-- Replaced player rectangle with textured sprite
-- Generated enemy_drone.png (mouse-themed, 256×256, pixel art) via image-gen MCP
+- Generated via image-gen MCP (pixel-art): 
+    - player_ship.png (cat-themed, 256×256)
+    - enemy_drone.png (mouse-themed, 256×256)
+    - starfield.png (seamless dark-blue starfield, 512×512)
 - Added Sprite ECS component (shared_ptr<sf::Texture> + unique_ptr<sf::Sprite>, move-only)
+- Replaced player and enemy shapes textured sprite (use fallback)
+- Background - infinite vertical scrolling tiles: 2 sprites high, one above the other
+
+### Why it matters / What's next
+- Next: sounds, effects, final visual polish

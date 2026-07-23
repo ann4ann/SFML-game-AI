@@ -72,6 +72,11 @@ private:
     sf::Texture enemy_texture_;                    ///< Enemy drone texture.
     std::shared_ptr<sf::Texture> enemy_tex_shared_; ///< Shared ptr for ECS (nullptr if fallback).
     bool        use_enemy_texture_fallback_ = true; ///< true → draw Shape rectangle (fallback).
+
+    // --- Starfield background ---
+    sf::Texture starfield_texture_;                     ///< Seamless starfield texture (512×512).
+    std::unique_ptr<sf::Sprite> starfield_sprite1_;     ///< First  background sprite (nullptr if fallback).
+    std::unique_ptr<sf::Sprite> starfield_sprite2_;     ///< Second background sprite (nullptr if fallback).
 };
 
 #endif // GAME_HPP

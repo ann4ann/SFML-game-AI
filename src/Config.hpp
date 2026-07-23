@@ -42,6 +42,11 @@ namespace score {
     constexpr int points_per_kill = 10;  ///< Points awarded per enemy destroyed
 } // namespace score
 
+/// @brief Background (starfield) settings.
+namespace background {
+    constexpr float scroll_speed = 50.0f;  ///< Vertical scroll speed (px/s) — slow drift for parallax feel
+} // namespace background
+
 } // namespace config
 
 #endif // CONFIG_HPP

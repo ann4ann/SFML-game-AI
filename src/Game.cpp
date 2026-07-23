@@ -50,6 +50,35 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     create_player();
 
     // --- Register systems ---
+    // --- Load starfield background texture ---
+    // Generated 2026-07-23 with prompt: "A seamless starfield texture for a space game,
+    // dark blue background with scattered white stars of varying sizes, pixel art, tiling"
+    if (starfield_texture_.loadFromFile("assets/imgs/starfield.png"))
+    {
+        starfield_texture_.setRepeated(true);
+
+        // Create both sprites
+        starfield_sprite1_ = std::make_unique<sf::Sprite>(starfield_texture_);
+        starfield_sprite2_ = std::make_unique<sf::Sprite>(starfield_texture_);
+
+        // Texture is 512×512; set texture rect to cover full screen width.
+        // sprite1 at (0, 0), sprite2 at (0, -screen_height) — one above the other.
+        starfield_sprite1_->setTextureRect({
+            {0, 0},
+            {static_cast<int>(screen_width_), static_cast<int>(screen_height_)}
+        });
+        starfield_sprite2_->setTextureRect({
+            {0, 0},
+            {static_cast<int>(screen_width_), static_cast<int>(screen_height_)}
+        });
+        starfield_sprite2_->setPosition({0.0f, -static_cast<float>(screen_height_)});
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load starfield texture 'assets/imgs/starfield.png', "
+                  << "background will be black.\n";
+    }
+
     systems_.push_back(std::make_unique<PlayerMovementSystem>(
         cm_,
         static_cast<float>(screen_width_),
@@ -172,6 +201,27 @@ void Game::process_events()
 
 void Game::update(float dt)
 {
+    // --- Update starfield scroll ---
+    if (starfield_texture_.getNativeHandle() != 0)
+    {
+        float scroll = config::background::scroll_speed * dt;
+        float screenH = static_cast<float>(screen_height_);
+
+        // Move both sprites downward
+        starfield_sprite1_->move({0.0f, scroll});
+        starfield_sprite2_->move({0.0f, scroll});
+
+        // If a sprite has scrolled completely past the bottom, reposition it above the other
+        if (starfield_sprite1_->getPosition().y >= screenH)
+        {
+            starfield_sprite1_->setPosition({0.0f, starfield_sprite2_->getPosition().y - screenH});
+        }
+        if (starfield_sprite2_->getPosition().y >= screenH)
+        {
+            starfield_sprite2_->setPosition({0.0f, starfield_sprite1_->getPosition().y - screenH});
+        }
+    }
+
     // --- Update all systems ---
     for (auto& system : systems_)
     {
@@ -192,6 +242,13 @@ void Game::update(float dt)
 void Game::render()
 {
     window_.clear(sf::Color::Black);
+
+    // --- Draw starfield background ---
+    if (starfield_texture_.getNativeHandle() != 0)
+    {
+        window_.draw(*starfield_sprite1_);
+        window_.draw(*starfield_sprite2_);
+    }
 
     // --- Draw player ---
     {
