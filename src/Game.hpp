@@ -62,6 +62,11 @@ private:
     sf::Clock fps_clock_;
     unsigned int frame_count_ = 0;
     float fps_ = 0.0f;
+
+    // --- Player sprite ---
+    sf::Texture player_texture_;              ///< Player ship texture.
+    std::unique_ptr<sf::Sprite> player_sprite_;   ///< Player ship sprite (nullptr if fallback).
+    bool        use_texture_fallback_ = true;     ///< true → draw Shape rectangle (fallback).
 };
 
 #endif // GAME_HPP
