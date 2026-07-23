@@ -1,13 +1,13 @@
 # Active Context
 
 ## 🔴 CRITICAL
-- **Current feature**: *(none — waiting for next task)*
+- **Current feature**: Sound-gen MCP server — completed
 
 ## 🟡 ACTIVE DECISIONS
-- **Asset pipeline**: Use image-gen MCP for all visual assets (sprites, textures). Standard size 256×256 for game objects, 512×512 for background tile.
-- **Prompt style**: English, detailed, with keywords "pixel art", "seamless", "tiling".
-- **Save path**: Always `assets/imgs/<name>.png` with absolute path parameter.
-- **Background scrolling**: Two sprites tiled vertically, `move()` per frame with per-sprite bottom-edge repositioning.
+- **Asset pipeline**: Image-gen MCP for visual assets, Sound-gen MCP for audio assets
+- **Sound-gen MCP**: 5 procedural sound types (laser, explosion, powerup, hit, pickup) — pure Python WAV generation
+- **Save path pattern for sounds**: `assets/sounds/<filename>.wav` via absolute `save_path` parameter
+
 
 ## 🟢 CONTEXT
 
@@ -21,7 +21,10 @@
 - **Rendering**: PlayerTag (sprite), EnemyTag (sprite via Sprite component), BulletTag (yellow) via Shape::rect
 - **HUD**: FPS (green, top-left), Score (white, below FPS)
 - **Image-gen MCP**: server_ga.py (Gen-API Flux-2), README, fallback support
-- **Completed**: Player sprite, Enemy sprite, Scrolling starfield background
+- **Sound-gen MCP**: server.py, README, 5 procedural sound types
+- **Completed**: Player sprite, Enemy sprite, Scrolling starfield background, Sound-gen server
 
 ### Next Steps
-1. Sounds, effects and final visual polish
+1. Integrate sounds into game (sf::SoundBuffer)
+2. Effects and final visual polish
+3. Main menu / Game Over scenes
