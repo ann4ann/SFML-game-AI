@@ -1,13 +1,14 @@
 # Active Context
 
 ## 🔴 CRITICAL
-- **Current feature**: Player ship sprite — replaced cyan rectangle with textured sprite.
-- **Asset**: `player_ship.png` (256×256) generated via image-gen MCP, cat-themed pixel art.
+- **Current feature**: Enemy sprite — replace red rectangle with textured sprite.
+- **Asset**: `enemy_drone.png` (256×256) to be generated via image-gen MCP, mouse-themed pixel art.
 
 ## 🟡 ACTIVE DECISIONS
 - **Asset pipeline**: Use image-gen MCP for all visual assets (sprites, textures). Standard size 256×256 for game objects.
 - **Prompt style**: English, detailed, with keywords "pixel art", "top-down view", "transparent background preferred".
 - **Save path**: Always `assets/imgs/<name>.png` with absolute path parameter.
+- **Enemy sprite**: New `Sprite` component for ECS, shared texture via `std::shared_ptr<sf::Texture>`, scaled to 64×64.
 
 ## 🟢 CONTEXT
 
@@ -18,7 +19,7 @@
 - **8 components**: Transform, Velocity, Shape, PlayerTag, EnemyTag, BulletTag, Health, Lifetime
 - **6 systems**: PlayerMovement, EnemySpawn, Movement, CollisionSystem (+scoring), BulletCleanup
 - **Config.hpp** with 4 namespaces: `config::window`, `config::player`, `config::bullet`, `config::enemy`, `config::score`
-- **Rendering**: PlayerTag (cyan), EnemyTag (red), BulletTag (yellow) via Shape::rect
+- **Rendering**: PlayerTag (sprite), EnemyTag (red rect → sprite), BulletTag (yellow) via Shape::rect
 - **HUD**: FPS (green, top-left), Score (white, below FPS)
 - **Image-gen MCP**: server_ga.py (Gen-API Flux-2), README, fallback support
 

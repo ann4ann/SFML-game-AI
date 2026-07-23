@@ -1,6 +1,7 @@
 #ifndef COMPONENTS_HPP
 #define COMPONENTS_HPP
 
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "Component.hpp"
 
@@ -18,6 +19,37 @@ struct Velocity : public Component {
 
     Velocity() = default;
     explicit Velocity(const sf::Vector2f& vel) : velocity(vel) {}
+};
+
+/// @brief Sprite component for textured rendering.
+/// Stores a shared texture reference and a drawable sprite.
+/// Multiple entities can share the same texture via shared_ptr.
+struct Sprite : public Component {
+    std::shared_ptr<sf::Texture> texture;       ///< Shared texture (may be null for fallback).
+    std::unique_ptr<sf::Sprite> sprite;         ///< Drawable sprite (nullptr if fallback).
+
+    Sprite() = default;
+
+    /// @brief Construct a sprite from a texture and scale it to the target size.
+    /// @param tex        Shared texture to use.
+    /// @param targetSize Desired size in pixels (sprite will be scaled to fit).
+    Sprite(std::shared_ptr<sf::Texture> tex, const sf::Vector2f& targetSize)
+        : texture(std::move(tex))
+        , sprite(std::make_unique<sf::Sprite>(*texture))
+    {
+        const sf::Vector2f texSize(static_cast<float>(texture->getSize().x),
+                                   static_cast<float>(texture->getSize().y));
+        const float scaleX = targetSize.x / texSize.x;
+        const float scaleY = targetSize.y / texSize.y;
+        sprite->setScale({scaleX, scaleY});
+        sprite->setOrigin({texSize.x * 0.5f, texSize.y * 0.5f});
+    }
+
+    // Move-only: unique_ptr disables copying.
+    Sprite(const Sprite&) = delete;
+    Sprite& operator=(const Sprite&) = delete;
+    Sprite(Sprite&&) = default;
+    Sprite& operator=(Sprite&&) = default;
 };
 
 /// @brief Rectangle shape for rendering (player, enemies, bullets).

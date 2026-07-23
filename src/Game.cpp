@@ -39,6 +39,7 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     cm_.register_component<Transform>();
     cm_.register_component<Velocity>();
     cm_.register_component<Shape>();
+    cm_.register_component<Sprite>();
     cm_.register_component<PlayerTag>();
     cm_.register_component<EnemyTag>();
     cm_.register_component<Health>();
@@ -60,13 +61,29 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         config::bullet::size
     ));
 
+    // Try to load enemy texture for sprite rendering
+    // Generated 2026-07-23 with prompt: "A hostile, mouse-themed alien drone, pixel art,
+    // top-down view, red and dark gray colors, menacing, small size, transparent background preferred"
+    if (enemy_texture_.loadFromFile("assets/imgs/enemy_drone.png"))
+    {
+        enemy_texture_.setSmooth(true);
+        enemy_tex_shared_ = std::make_shared<sf::Texture>(enemy_texture_);
+        use_enemy_texture_fallback_ = false;
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load enemy texture 'assets/imgs/enemy_drone.png', "
+                  << "using fallback rectangle.\n";
+    }
+
     systems_.push_back(std::make_unique<EnemySpawnSystem>(
         cm_,
         static_cast<float>(screen_width_),
         static_cast<float>(screen_height_),
         &next_entity_id_,
         config::enemy::spawn_interval,
-        config::enemy::speed
+        config::enemy::speed,
+        enemy_tex_shared_
     ));
 
     systems_.push_back(std::make_unique<MovementSystem>(cm_));
@@ -213,12 +230,25 @@ void Game::render()
         {
             Entity enemy(eid);
             auto* transform = cm_.get_component<Transform>(enemy);
-            auto* shape     = cm_.get_component<Shape>(enemy);
 
-            if (transform && shape)
+            if (!transform)
+                continue;
+
+            // Try sprite rendering first, fallback to shape
+            auto* sprite_comp = cm_.get_component<Sprite>(enemy);
+            if (sprite_comp && sprite_comp->sprite)
             {
-                shape->rect.setPosition(transform->position);
-                window_.draw(shape->rect);
+                sprite_comp->sprite->setPosition(transform->position);
+                window_.draw(*sprite_comp->sprite);
+            }
+            else
+            {
+                auto* shape = cm_.get_component<Shape>(enemy);
+                if (shape)
+                {
+                    shape->rect.setPosition(transform->position);
+                    window_.draw(shape->rect);
+                }
             }
         }
     }

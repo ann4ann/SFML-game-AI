@@ -31,8 +31,8 @@ namespace bullet {
 /// @brief Enemy settings.
 namespace enemy {
     constexpr float speed          = 150.0f;  ///< Downward speed (px/s)
-    constexpr float size_x         = 40.0f;   ///< Rectangle width  (px)
-    constexpr float size_y         = 30.0f;   ///< Rectangle height (px)
+    constexpr float size_x         = 64.0f;   ///< Sprite width  (px)
+    constexpr float size_y         = 64.0f;   ///< Sprite height (px)
     constexpr float spawn_interval = 2.0f;    ///< Seconds between spawns
     constexpr int   hp             = 1;       ///< Hit points
 } // namespace enemy
