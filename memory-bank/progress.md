@@ -1,7 +1,8 @@
 # Progress
 
 ## In Progress
-- [ ] Sounds, effects and final visual polish
+- [ ] Effects and final visual polish
+- [ ] Main menu / Game Over scenes
 
 ## Completed
 - [x] Project scaffolding (CMake + SFML 3.0)
@@ -18,11 +19,12 @@
 - [x] Player ship sprite — textured sprite (AI-generated player_ship.png)
 - [x] Enemy drone sprite — Sprite ECS component, textured enemy (AI-generated enemy_drone.png)
 - [x] Scrolling starfield background with infinite vertical scroll
+- [x] Sound-gen MCP server — procedural audio (5 sound types), README
 
 ## Backlog
-1. Main menu / Game Over scenes
+1. Integrate sounds into game (sf::SoundBuffer)
 2. Player lives / game over condition
-3. Sound effects (procedural or API)
+3. Main menu / Game Over scenes
 
 ## Known Issues
 - Entity without all components silently skipped in render — no error feedback

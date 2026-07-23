@@ -38,7 +38,7 @@
 ### Why it matters / What's next
 - Asset pipeline foundation ready: AI can now generate game sprites on demand
 
-## 2026-07-23 - Game sprites with AI generated Textures
+## 2026-07-23 - Game sprites with AI generated Textures and Sounds
 ### Done
 - Generated via image-gen MCP (pixel-art): 
     - player_ship.png (cat-themed, 256×256)
@@ -47,6 +47,7 @@
 - Added Sprite ECS component (shared_ptr<sf::Texture> + unique_ptr<sf::Sprite>, move-only)
 - Replaced player and enemy shapes textured sprite (use fallback)
 - Background - infinite vertical scrolling tiles: 2 sprites high, one above the other
+- Created sound-gen MCP server: procedural WAV generation (pure Python) with 5 sound types: laser, explosion, powerup, hit, pickup
 
 ### Why it matters / What's next
-- Next: sounds, effects, final visual polish
+- Next: effects, final visual polish
