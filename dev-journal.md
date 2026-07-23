@@ -38,3 +38,9 @@
 ### Why it matters / What's next
 - Asset pipeline foundation ready: AI can now generate game sprites on demand
 
+## 2026-07-23 - Player ship sprite (replace rectangle)
+### Done
+- Generated player_ship.png (cat-themed, 256×256, pixel art) via image-gen MCP
+- Replaced player rectangle with textured sprite
+
+

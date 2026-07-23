@@ -91,8 +91,40 @@ void Game::create_player()
 
     cm_.add_component(player, Transform{sf::Vector2f{startX, startY}});
     cm_.add_component(player, Velocity{sf::Vector2f{0.0f, 0.0f}});
-    cm_.add_component(player, Shape{sf::Vector2f{playerWidth, playerHeight}, sf::Color::Cyan});
     cm_.add_component(player, PlayerTag{});
+    // Shape is always added for clamping / hitbox calculations in PlayerMovementSystem.
+    // When texture is loaded, sprite is drawn in render() instead.
+    cm_.add_component(player, Shape{sf::Vector2f{playerWidth, playerHeight}, sf::Color::Transparent});
+
+    // Try to load the player ship texture
+    // Generated 2026-07-23 with prompt: "A sleek, cat-themed space fighter with pixel art, pixel art,
+    // top-down view, blue and silver colors, 8-bit style, dark background not needed"
+    if (player_texture_.loadFromFile("assets/imgs/player_ship.png"))
+    {
+        player_texture_.setSmooth(true);
+        player_sprite_ = std::make_unique<sf::Sprite>(player_texture_);
+
+        // Scale sprite to match desired player size
+        sf::Vector2f texSize(player_texture_.getSize().x, player_texture_.getSize().y);
+        float scaleX = playerWidth  / texSize.x;
+        float scaleY = playerHeight / texSize.y;
+        player_sprite_->setScale({scaleX, scaleY});
+
+        // Center the sprite origin
+        player_sprite_->setOrigin({texSize.x * 0.5f, texSize.y * 0.5f});
+
+        use_texture_fallback_ = false;   // Use sprite rendering
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load player texture 'assets/imgs/player_ship.png', "
+                  << "using fallback rectangle.\n";
+        // Shape already added above; just change its color to visible
+        auto* existing_shape = cm_.get_component<Shape>(player);
+        if (existing_shape)
+            existing_shape->rect.setFillColor(sf::Color::Cyan);
+        use_texture_fallback_ = true;    // Fallback to rectangle
+    }
 }
 
 void Game::run()
@@ -151,12 +183,25 @@ void Game::render()
         {
             Entity player(playerIds[0]);
             auto* transform = cm_.get_component<Transform>(player);
-            auto* shape     = cm_.get_component<Shape>(player);
 
-            if (transform && shape)
+            if (transform)
             {
-                shape->rect.setPosition(transform->position);
-                window_.draw(shape->rect);
+                if (!use_texture_fallback_)
+                {
+                    // Texture sprite rendering
+                    player_sprite_->setPosition(transform->position);
+                    window_.draw(*player_sprite_);
+                }
+                else
+                {
+                    // Fallback rectangle rendering
+                    auto* shape = cm_.get_component<Shape>(player);
+                    if (shape)
+                    {
+                        shape->rect.setPosition(transform->position);
+                        window_.draw(shape->rect);
+                    }
+                }
             }
         }
     }

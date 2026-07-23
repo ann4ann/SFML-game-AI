@@ -16,8 +16,8 @@ namespace window {
 /// @brief Player settings.
 namespace player {
     constexpr float speed      = 300.0f;  ///< Movement speed (px/s)
-    constexpr float size_x     = 50.0f;   ///< Rectangle width  (px)
-    constexpr float size_y     = 30.0f;   ///< Rectangle height (px)
+    constexpr float size_x     = 96.0f;   ///< Player width  (px) — fits 256×256 sprite scaled down
+    constexpr float size_y     = 96.0f;   ///< Player height (px)
 } // namespace player
 
 /// @brief Bullet settings.
