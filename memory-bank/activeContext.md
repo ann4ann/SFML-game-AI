@@ -1,8 +1,8 @@
 # Active Context
 
 ## 🔴 CRITICAL
-- **Current feature**: Image-gen MCP server completed — Gen-API Flux-2 integration, README, docstrings, asset generation rules in .clinerules.
-- **Test asset**: `player.png` (512×512) generated successfully.
+- **Current feature**: Player ship sprite — replaced cyan rectangle with textured sprite.
+- **Asset**: `player_ship.png` (256×256) generated via image-gen MCP, cat-themed pixel art.
 
 ## 🟡 ACTIVE DECISIONS
 - **Asset pipeline**: Use image-gen MCP for all visual assets (sprites, textures). Standard size 256×256 for game objects.
