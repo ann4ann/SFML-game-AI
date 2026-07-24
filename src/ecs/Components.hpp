@@ -94,4 +94,22 @@ struct Health : public Component {
     explicit Health(int hp_) : hp(hp_) {}
 };
 
+/// @brief Frame-based animation component for explosion spritesheets.
+/// Animates through frames of a horizontally-tiled spritesheet.
+/// The entity is automatically removed when animation completes.
+struct ExplosionAnim : public Component {
+    int current_frame = 0;               ///< Current frame index (0-based).
+    int total_frames = 4;                ///< Total frames in the spritesheet.
+    float frame_timer = 0.0f;            ///< Accumulated time since last frame change (s).
+    float frame_duration = 0.1f;         ///< Duration per frame in seconds (~10 FPS).
+    sf::Vector2i frame_size{256, 256};   ///< Size of a single frame in pixels.
+    bool remove_on_finish = true;        ///< If true, remove entity when animation ends.
+
+    ExplosionAnim() = default;
+    ExplosionAnim(int total_frames_, float frame_duration_)
+        : total_frames(total_frames_)
+        , frame_duration(frame_duration_)
+    {}
+};
+
 #endif // COMPONENTS_HPP

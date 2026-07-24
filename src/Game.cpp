@@ -6,6 +6,7 @@
 #include "systems/MovementSystem.hpp"
 #include "systems/BulletCleanupSystem.hpp"
 #include "systems/CollisionSystem.hpp"
+#include "systems/ExplosionAnimationSystem.hpp"
 
 Game::Game(unsigned int width, unsigned int height, const std::string& title)
     : window_(sf::VideoMode({width, height}), title)
@@ -64,6 +65,7 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     cm_.register_component<Health>();
     cm_.register_component<BulletTag>();
     cm_.register_component<Lifetime>();
+    cm_.register_component<ExplosionAnim>();
 
     // --- Create player ---
     create_player();
@@ -135,19 +137,38 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         enemy_tex_shared_
     ));
 
+    // Try to load explosion spritesheet for animation
+    // Generated 2026-07-24 with prompt: "A small glowing energy bolt explosion animation spritesheet
+    // with 4 frames arranged horizontally, pixel art, bright yellow and white colors, transparent
+    // background preferred, each frame 256x256 pixels, top-down view"
+    if (explosion_sheet_texture_.loadFromFile("assets/imgs/explosion_sheet.png"))
+    {
+        explosion_sheet_texture_.setSmooth(true);
+        explosion_tex_shared_ = std::make_shared<sf::Texture>(explosion_sheet_texture_);
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load explosion spritesheet 'assets/imgs/explosion_sheet.png', "
+                  << "no explosion animation will play.\n";
+    }
+
     systems_.push_back(std::make_unique<MovementSystem>(cm_));
 
     systems_.push_back(std::make_unique<CollisionSystem>(
         cm_,
         &score_,
         hit_sound_.get(),
-        explosion_sound_.get()
+        explosion_sound_.get(),
+        &next_entity_id_,
+        explosion_tex_shared_
     ));
 
     systems_.push_back(std::make_unique<BulletCleanupSystem>(
         cm_,
         static_cast<float>(screen_height_)
     ));
+
+    systems_.push_back(std::make_unique<ExplosionAnimationSystem>(cm_));
 }
 
 void Game::create_player()
@@ -331,6 +352,23 @@ void Game::render()
                     shape->rect.setPosition(transform->position);
                     window_.draw(shape->rect);
                 }
+            }
+        }
+    }
+
+    // --- Draw explosions ---
+    {
+        auto explosionIds = cm_.get_entities_with_component<ExplosionAnim>();
+        for (auto eid : explosionIds)
+        {
+            Entity explosion(eid);
+            auto* transform = cm_.get_component<Transform>(explosion);
+            auto* sprite_comp = cm_.get_component<Sprite>(explosion);
+
+            if (transform && sprite_comp && sprite_comp->sprite)
+            {
+                sprite_comp->sprite->setPosition(transform->position);
+                window_.draw(*sprite_comp->sprite);
             }
         }
     }

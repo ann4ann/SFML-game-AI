@@ -5,11 +5,15 @@
 CollisionSystem::CollisionSystem(ComponentManager& cm,
                                  int* score,
                                  sf::Sound* hitSound,
-                                 sf::Sound* explosionSound)
+                                 sf::Sound* explosionSound,
+                                 EntityId* nextId,
+                                 std::shared_ptr<sf::Texture> explosionTexture)
     : cm_(cm)
     , score_(score)
     , hit_sound_(hitSound)
     , explosion_sound_(explosionSound)
+    , next_entity_id_(nextId)
+    , explosion_texture_(std::move(explosionTexture))
 {
 }
 
@@ -83,6 +87,14 @@ void CollisionSystem::update(float /*dt*/)
             {
                 // Play explosion sound on enemy destruction
                 if (explosion_sound_) explosion_sound_->play();
+
+                // Spawn explosion animation at the enemy's position
+                auto* enemyTransform = cm_.get_component<Transform>(enemy);
+                if (enemyTransform)
+                {
+                    spawn_explosion(enemyTransform->position);
+                }
+
                 remove_enemy_components(enemy);
                 // Award points for destroying an enemy
                 if (score_) *score_ += config::score::points_per_kill;
@@ -94,6 +106,45 @@ void CollisionSystem::update(float /*dt*/)
             }
         }
     }
+}
+
+void CollisionSystem::spawn_explosion(const sf::Vector2f& position)
+{
+    if (!next_entity_id_ || !explosion_texture_)
+        return;
+
+    Entity explosion((*next_entity_id_)++);
+
+    cm_.add_component(explosion, Transform{position});
+
+    // Create sprite manually — do NOT use the scaling constructor because it
+    // would scale the entire spritesheet down to the target size, making the
+    // subsequent textureRect incorrect.
+    auto spriteComp = Sprite();
+    spriteComp.texture = explosion_texture_;
+    spriteComp.sprite = std::make_unique<sf::Sprite>(*explosion_texture_);
+
+    // Set texture rect to the first frame (left=0)
+    const int fp = config::explosion::frame_pixel;
+    spriteComp.sprite->setTextureRect({
+        {0, 0},
+        {fp, fp}
+    });
+
+    // Scale so that frame_pixel → sprite_size
+    const float scale = config::explosion::sprite_size / static_cast<float>(fp);
+    spriteComp.sprite->setScale({scale, scale});
+
+    // Set origin to the centre of the frame
+    spriteComp.sprite->setOrigin({fp * 0.5f, fp * 0.5f});
+
+    cm_.add_component(explosion, std::move(spriteComp));
+
+    // Add animation component
+    cm_.add_component(explosion, ExplosionAnim{
+        config::explosion::frame_count,
+        config::explosion::frame_duration
+    });
 }
 
 void CollisionSystem::remove_bullet_components(Entity entity)

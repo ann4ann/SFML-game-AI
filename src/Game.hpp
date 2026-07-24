@@ -79,6 +79,10 @@ private:
     std::unique_ptr<sf::Sprite> starfield_sprite1_;     ///< First  background sprite (nullptr if fallback).
     std::unique_ptr<sf::Sprite> starfield_sprite2_;     ///< Second background sprite (nullptr if fallback).
 
+    // --- Explosion spritesheet ---
+    sf::Texture explosion_sheet_texture_;                        ///< Explosion spritesheet texture (1024×256).
+    std::shared_ptr<sf::Texture> explosion_tex_shared_;          ///< Shared ptr for ECS (nullptr if fallback).
+
     // --- Sound effects ---
     sf::SoundBuffer laser_buffer_;                          ///< Laser shot sound buffer.
     std::unique_ptr<sf::Sound> laser_sound_;                ///< Laser shot sound (nullptr if load failed).

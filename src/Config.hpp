@@ -47,6 +47,14 @@ namespace background {
     constexpr float scroll_speed = 50.0f;  ///< Vertical scroll speed (px/s) — slow drift for parallax feel
 } // namespace background
 
+/// @brief Explosion animation settings.
+namespace explosion {
+    constexpr float sprite_size   = 64.0f;   ///< Rendered size of explosion sprite (px) — matches enemy size.
+    constexpr int   frame_count   = 4;       ///< Number of frames in the spritesheet.
+    constexpr float frame_duration = 0.1f;   ///< Seconds per frame (~10 FPS).
+    constexpr int   frame_pixel   = 256;     ///< Size of a single frame in the source spritesheet (px).
+} // namespace explosion
+
 } // namespace config
 
 #endif // CONFIG_HPP
