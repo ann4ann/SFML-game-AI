@@ -2,7 +2,7 @@
 > **Purpose**:  Reflects global status and milestones
 
 ## In Progress
-- [ ] Main menu / Game Over scenes
+- [ ] Main menu scene
 
 ## Completed
 - [x] Scoring system — +10 points per enemy, displayed in top-left corner
@@ -16,10 +16,11 @@
 - [x] Explosion animation — 4-frame spritesheet, ExplosionAnim component, ExplosionAnimationSystem, magic numbers in config
 - [x] Bullet sprite — textured sprite (AI-generated bullet_bolt.png)
 - [x] Window icon — pixel-art icon, set via sf::Image + setIcon
+- [x] Game Over state — enemy bottom-boundary + player-enemy collision, dark red nebula background, GAME OVER + final score display
 
 ## Backlog
-1. Player lives / game over condition
-2. Main menu / Game Over scenes
+1. Main menu scene
+2. Player lives system
 
 ## Known Issues
 - Entity without all components silently skipped in render — no error feedback
