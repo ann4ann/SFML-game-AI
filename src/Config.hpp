@@ -34,7 +34,7 @@ namespace enemy {
     constexpr float size_x         = 64.0f;   ///< Sprite width  (px)
     constexpr float size_y         = 64.0f;   ///< Sprite height (px)
     constexpr float spawn_interval = 2.0f;    ///< Seconds between spawns
-    constexpr int   hp             = 1;       ///< Hit points
+    constexpr int   hp             = 2;       ///< Hit points
 } // namespace enemy
 
 /// @brief Score settings.

@@ -2,9 +2,14 @@
 #include "Config.hpp"
 #include "ecs/Components.hpp"
 
-CollisionSystem::CollisionSystem(ComponentManager& cm, int* score)
+CollisionSystem::CollisionSystem(ComponentManager& cm,
+                                 int* score,
+                                 sf::Sound* hitSound,
+                                 sf::Sound* explosionSound)
     : cm_(cm)
     , score_(score)
+    , hit_sound_(hitSound)
+    , explosion_sound_(explosionSound)
 {
 }
 
@@ -76,9 +81,16 @@ void CollisionSystem::update(float /*dt*/)
             enemyHealth->hp -= 1;
             if (enemyHealth->hp <= 0)
             {
+                // Play explosion sound on enemy destruction
+                if (explosion_sound_) explosion_sound_->play();
                 remove_enemy_components(enemy);
                 // Award points for destroying an enemy
                 if (score_) *score_ += config::score::points_per_kill;
+            }
+            else
+            {
+                // Play hit sound on non-lethal damage
+                if (hit_sound_) hit_sound_->play();
             }
         }
     }
