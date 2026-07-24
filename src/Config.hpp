@@ -61,6 +61,14 @@ namespace explosion {
     constexpr int   frame_pixel   = 256;     ///< Size of a single frame in the source spritesheet (px).
 } // namespace explosion
 
+/// @brief Game over screen settings.
+namespace game_over {
+    constexpr unsigned int title_font_size  = 72;   ///< Font size for "GAME OVER" title (px)
+    constexpr unsigned int score_font_size  = 36;   ///< Font size for final score text (px)
+    constexpr float title_offset_y          = -50.0f; ///< Vertical offset of title from screen center (px)
+    constexpr float score_offset_y          = 30.0f;  ///< Vertical offset of score from screen center (px)
+} // namespace game_over
+
 } // namespace config
 
 #endif // CONFIG_HPP

@@ -98,6 +98,13 @@ private:
     std::unique_ptr<sf::Sound> hit_sound_;                  ///< Enemy hit sound (nullptr if load failed).
     sf::SoundBuffer explosion_buffer_;                      ///< Enemy explosion sound buffer.
     std::unique_ptr<sf::Sound> explosion_sound_;            ///< Enemy explosion sound (nullptr if load failed).
+
+    // --- Game over state ---
+    bool game_over_ = false;                                   ///< True when game over is triggered.
+    sf::Text game_over_title_{font_};                          ///< "GAME OVER" title text.
+    sf::Text game_over_score_{font_};                          ///< Final score text.
+    sf::Texture game_over_bg_texture_;                        ///< Game over background texture.
+    std::unique_ptr<sf::Sprite> game_over_bg_sprite_;         ///< Game over background sprite (nullptr if fallback).
 };
 
 #endif // GAME_HPP

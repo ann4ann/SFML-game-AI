@@ -21,6 +21,7 @@ add_executable(space-shooter
     src/systems/BulletCleanupSystem.cpp
     src/systems/CollisionSystem.cpp
     src/systems/ExplosionAnimationSystem.cpp
+    src/systems/GameOverSystem.cpp
 )
 
 # Add include directories
