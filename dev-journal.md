@@ -55,12 +55,18 @@
     - 3 sounds: player_laser.wav, enemy_hit.wav, enemy_explosion.wav
     - explosion spritesheet (4 frames)
     - bullet texture
+    - icon image
 - Improved MCP sound-gen generators: laser, hit, explosion
 - Added three sound slots to the Game class: PlayerMovementSystem plays a sound on shooting, and CollisionSystem - on enemy hit and destruction.
 - Added an explosion entity with ExplosionAnim + ExplosionAnimationSystem, and CollisionSystem now spawns it at the enemy’s position on death
 - Replaced bullet shape textured sprite (use fallback)
+- Added icon member to Game.hpp
 - Added "magic numbers → Config.hpp" rule to .clinerules
+- Added token-optimimisation rules, created PROJECT_CONTEXT.md, refactor systemPatterns and removed duplicate rules
 
 ### Why it matters / What's next
-- Game now has audio and visual feedback for shooting, hitting, and destroying enemies
+- Game now has audio and visual feedback for shooting, hitting, and destroying enemies, icon
+- Token-optimisation now allows to use agents more efficiently
 - Next: final visual polish, main menu / Game Over scenes
+
+

@@ -17,12 +17,15 @@
 
 ## Feature Development
 ### Workflow
-1. **Create a feature branch** using MCP git-ops (`create_branch`)
+1. **Create a feature branch** using MCP git-ops (`create_branch`), name pattern: `feature/<feature-name>`
 2. **Update `activeContext.md`** with the new feature context
 3. **Read `PROJECT_CONTEXT.md` first** — only then read specific source files for edits (never as reading sources)
 4. **Implement** — details for different cases are below.
 5. **Build and test** after each logical step — run build-test MCP server
-6. **Commit** when the feature is successfully completed; if feature has multiple stages (at the end of each, a successful build should show changes in the program) make a separate commit for each; after feature completion update `dev-journal.md`, `progress.md`, `activeContext.md`, then final commit + push
+6. **Commit**: 
+- if feature has multiple stages (at the end of each, a successful build should show changes in the program) make a separate commit for each; 
+- when the feature is successfully completed; 
+7. after feature completion update `dev-journal.md`, `progress.md`, `activeContext.md`, then final commit + push
 
 #### Cpp project feature
 - **Implement** — add components to `Components.hpp`, register in `Game` constructor, add system in `src/systems/`, add `.cpp` to `CMakeLists.txt`
