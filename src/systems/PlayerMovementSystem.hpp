@@ -2,6 +2,7 @@
 #define PLAYER_MOVEMENT_SYSTEM_HPP
 
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include "ecs/System.hpp"
 #include "ecs/ComponentManager.hpp"
@@ -18,7 +19,9 @@ public:
     /// @param speed          Player movement speed in pixels per second.
     /// @param bulletSpeed    Bullet upward speed in pixels per second.
     /// @param cooldown       Minimum interval between shots in seconds.
-    /// @param bulletSize     Side length of the square bullet in pixels.
+    /// @param bulletSize     Side length of the square bullet hitbox (px).
+    /// @param bulletTex      Shared pointer to bullet texture (nullptr = fallback).
+    /// @param laserSound     Raw pointer to laser sound (nullptr = silent).
     PlayerMovementSystem(ComponentManager& cm,
                          float screenWidth,
                          float screenHeight,
@@ -27,6 +30,7 @@ public:
                          float bulletSpeed = 500.0f,
                          float cooldown = 0.25f,
                          float bulletSize = 8.0f,
+                         std::shared_ptr<sf::Texture> bulletTex = nullptr,
                          sf::Sound* laserSound = nullptr);
 
     /// @brief Processes input and updates player position / spawns bullets.
@@ -43,6 +47,7 @@ private:
     float fire_cooldown_;
     float bullet_size_;
     float time_since_last_shot_ = 0.0f;
+    std::shared_ptr<sf::Texture> bullet_texture_;   ///< Shared bullet texture (may be null for fallback).
     sf::Sound* laser_sound_;
 
     /// @brief Returns true if a key is currently pressed.

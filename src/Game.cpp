@@ -100,6 +100,21 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
                   << "background will be black.\n";
     }
 
+    // Try to load bullet texture for sprite rendering
+    // Generated 2026-07-24 with prompt: "A small glowing energy bolt pointing upward, pixel art,
+    // bright yellow/white, top-down view, transparent background preferred, direction from bottom to top"
+    if (bullet_texture_.loadFromFile("assets/imgs/bullet_bolt.png"))
+    {
+        bullet_texture_.setSmooth(true);
+        bullet_tex_shared_ = std::make_shared<sf::Texture>(bullet_texture_);
+        use_bullet_texture_fallback_ = false;
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load bullet texture 'assets/imgs/bullet_bolt.png', "
+                  << "using fallback rectangle.\n";
+    }
+
     systems_.push_back(std::make_unique<PlayerMovementSystem>(
         cm_,
         static_cast<float>(screen_width_),
@@ -109,6 +124,7 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         config::bullet::speed,
         config::bullet::cooldown,
         config::bullet::size,
+        bullet_tex_shared_,
         laser_sound_.get()
     ));
 
@@ -380,12 +396,25 @@ void Game::render()
         {
             Entity bullet(eid);
             auto* transform = cm_.get_component<Transform>(bullet);
-            auto* shape     = cm_.get_component<Shape>(bullet);
 
-            if (transform && shape)
+            if (!transform)
+                continue;
+
+            // Try sprite rendering first, fallback to shape
+            auto* sprite_comp = cm_.get_component<Sprite>(bullet);
+            if (sprite_comp && sprite_comp->sprite)
             {
-                shape->rect.setPosition(transform->position);
-                window_.draw(shape->rect);
+                sprite_comp->sprite->setPosition(transform->position);
+                window_.draw(*sprite_comp->sprite);
+            }
+            else
+            {
+                auto* shape = cm_.get_component<Shape>(bullet);
+                if (shape)
+                {
+                    shape->rect.setPosition(transform->position);
+                    window_.draw(shape->rect);
+                }
             }
         }
     }
