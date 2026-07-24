@@ -51,11 +51,14 @@
 
 ## 2026-07-24 - Sound effects integration, Explosion animation on enemy destruction
 ### Done
-- Generated 3 sounds via sound-gen MCP: player_laser.wav, enemy_hit.wav, enemy_explosion.wav
-- Added three sound slots to Game class, PlayerMovementSystem on shooting and CollisionSystem on enemy hit and destruction 
+- Generated via sound-gen and image-gen MCP:
+    - 3 sounds: player_laser.wav, enemy_hit.wav, enemy_explosion.wav
+    - explosion spritesheet (4 frames)
+    - bullet texture
 - Improved MCP sound-gen generators: laser, hit, explosion
-- Generated explosion spritesheet (1024×256, 4 frames) via image-gen MCP
+- Added three sound slots to the Game class: PlayerMovementSystem plays a sound on shooting, and CollisionSystem - on enemy hit and destruction.
 - Added an explosion entity with ExplosionAnim + ExplosionAnimationSystem, and CollisionSystem now spawns it at the enemy’s position on death
+- Replaced bullet shape textured sprite (use fallback)
 - Added "magic numbers → Config.hpp" rule to .clinerules
 
 ### Why it matters / What's next

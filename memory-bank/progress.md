@@ -21,6 +21,7 @@
 - [x] Sound-gen MCP server — procedural audio (5 sound types), README
 - [x] Sound effects integration — laser on shoot, hit on damage, explosion on destruction (enemy HP=2)
 - [x] Explosion animation — 4-frame spritesheet, ExplosionAnim component, ExplosionAnimationSystem, magic numbers in config
+- [x] Bullet sprite — textured sprite (AI-generated bullet_bolt.png)
 
 ## Backlog
 1. Player lives / game over condition

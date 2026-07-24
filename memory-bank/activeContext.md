@@ -1,14 +1,12 @@
 # Active Context
 
 ## 🔴 CRITICAL
-- **Current feature**: Explosion animation — completed
+- **Current feature**: Bullet sprite instead shape — completed
 
 ## 🟡 ACTIVE DECISIONS
 - **Asset pipeline**: Image-gen MCP for visual assets, Sound-gen MCP for audio assets
 - **Sound-gen MCP**: 5 procedural sound types (laser, explosion, powerup, hit, pickup) — pure Python WAV generation
-- **Save path pattern for sounds**: `assets/sounds/<filename>.wav` via absolute `save_path` parameter
-- **Sound architecture**: `std::unique_ptr<sf::Sound>` stored in Game, raw pointers passed to systems (nullptr = silent fallback)
-- **Explosion animation**: 4-frame spritesheet (1024×256), frame-based `ExplosionAnimationSystem`, spawned by CollisionSystem on enemy death
+
 
 ## 🟢 CONTEXT
 
@@ -25,7 +23,7 @@
 - **Sound-gen MCP**: server.py, README, 5 procedural sound types
 - **Sound effects**: Laser on shoot (PlayerMovementSystem), hit on damage + explosion on destruction (CollisionSystem)
 - **Visual effects**: Explosion animation on enemy kill via ExplosionAnimationSystem (frame-based, auto-remove)
-- **Completed**: Player sprite, Enemy sprite, Scrolling starfield background, Sound-gen server, Sound integration, Explosion animation
+- **Completed**: Player, Enemy and Bullet sprites, Scrolling starfield background, Sound integration, Explosion animation
 
 ### Next Steps
 1. Main menu / Game Over scenes
