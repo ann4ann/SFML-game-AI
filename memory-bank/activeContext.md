@@ -2,16 +2,16 @@
 > **Purpose**:  Context of the current task only
 
 ## 🔴 CRITICAL
-- **Current task**: Game Over state — enemy reaches bottom or collides with player → game stops, displays GAME OVER + final score
-- **Branch**: `feature/game-over`
+- **Current task**: Player lives system (expanded) — enemy bottom breach also costs a life
+- **Branch**: `feature/lives-system`
 
 ## 🟡 ACTIVE DECISIONS
-- **GameOverSystem**: new ECS system in `src/systems/`, checks enemy bottom-edge + player-enemy AABB collision, sets `bool* game_over` flag
-- **Game state**: `bool game_over_` in Game; `update()` skips when set; `render()` draws game over screen (dark bg + text)
-- **Background asset**: `assets/imgs/game_over_bg.png` (512×512, generated via image-gen MCP)
-- **Config**: add `config::game_over` namespace (font sizes, text offsets)
+- Both player-enemy collision AND enemy bottom breach decrement lives
+- Enemy is removed on bottom breach (same as collision)
+- Game Over triggers only when lives reach 0
+- Heart HUD renders in top-right corner
 
 ## 🟢 CONTEXT
-- Shape component has centered origin (`setOrigin(size/2)`) — AABB must account for this
-- Player-enemy collision NOT currently implemented — adding in GameOverSystem
-- GameOverSystem registered last (after ExplosionAnimationSystem)
+- Heart sprite: `assets/imgs/heart.png` (256×256 pixel art, generated via image-gen MCP)
+- GameOverSystem: remove_enemy_components() added for clean enemy removal
+- Lives system: 3 lives, config::lives namespace

@@ -105,6 +105,11 @@ private:
     sf::Text game_over_score_{font_};                          ///< Final score text.
     sf::Texture game_over_bg_texture_;                        ///< Game over background texture.
     std::unique_ptr<sf::Sprite> game_over_bg_sprite_;         ///< Game over background sprite (nullptr if fallback).
+
+    // --- Player lives ---
+    int lives_ = 0;                                                     ///< Current number of lives.
+    sf::Texture heart_texture_;                                         ///< Heart icon texture.
+    std::unique_ptr<sf::Sprite> heart_sprite_;                         ///< Heart icon sprite (nullptr if load failed).
 };
 
 #endif // GAME_HPP

@@ -3,10 +3,12 @@
 
 GameOverSystem::GameOverSystem(ComponentManager& cm,
                                float screenHeight,
-                               bool* gameOver)
+                               bool* gameOver,
+                               int* lives)
     : cm_(cm)
     , screen_height_(screenHeight)
     , game_over_(gameOver)
+    , lives_(lives)
 {
 }
 
@@ -40,7 +42,20 @@ void GameOverSystem::check_enemy_bottom()
         float enemy_bottom = transform->position.y + shape->rect.getSize().y * 0.5f;
         if (enemy_bottom >= screen_height_)
         {
-            *game_over_ = true;
+            // Lose a life when an enemy reaches the bottom
+            if (lives_ && *lives_ > 0)
+            {
+                *lives_ -= 1;
+            }
+
+            // Remove the enemy
+            remove_enemy_components(enemy);
+
+            // Game over if no lives remain
+            if (lives_ && *lives_ <= 0)
+            {
+                *game_over_ = true;
+            }
             return;
         }
     }
@@ -86,8 +101,31 @@ void GameOverSystem::check_player_enemy_collision()
         if (player_left < enemy_right && player_right > enemy_left &&
             player_top < enemy_bottom && player_bottom > enemy_top)
         {
-            *game_over_ = true;
+            // Lose a life on enemy collision
+            if (lives_ && *lives_ > 0)
+            {
+                *lives_ -= 1;
+            }
+
+            // Remove the enemy so it doesn't keep dealing damage
+            remove_enemy_components(enemy);
+
+            // Game over if no lives remain
+            if (lives_ && *lives_ <= 0)
+            {
+                *game_over_ = true;
+            }
             return;
         }
     }
+}
+
+void GameOverSystem::remove_enemy_components(Entity entity)
+{
+    cm_.remove_component<Transform>(entity);
+    cm_.remove_component<Velocity>(entity);
+    cm_.remove_component<Shape>(entity);
+    cm_.remove_component<Sprite>(entity);
+    cm_.remove_component<EnemyTag>(entity);
+    cm_.remove_component<Health>(entity);
 }

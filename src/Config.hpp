@@ -69,6 +69,15 @@ namespace game_over {
     constexpr float score_offset_y          = 30.0f;  ///< Vertical offset of score from screen center (px)
 } // namespace game_over
 
+/// @brief Player lives (hearts) settings.
+namespace lives {
+    constexpr int   max_lives      = 3;       ///< Starting number of lives.
+    constexpr float heart_size     = 32.0f;   ///< Rendered heart icon size (px).
+    constexpr float heart_spacing  = 8.0f;    ///< Spacing between heart icons (px).
+    constexpr float margin_right   = 20.0f;   ///< Right margin from screen edge (px).
+    constexpr float margin_top     = 20.0f;   ///< Top margin from screen edge (px).
+} // namespace lives
+
 } // namespace config
 
 #endif // CONFIG_HPP
