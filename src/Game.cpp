@@ -53,6 +53,22 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
                   << "using black background.\n";
     }
 
+    // --- Load heart icon texture ---
+    // Generated 2026-07-25 via image-gen MCP with prompt: "A pixel art heart, red"
+    if (heart_texture_.loadFromFile("assets/imgs/heart.png"))
+    {
+        heart_sprite_ = std::make_unique<sf::Sprite>(heart_texture_);
+        // Scale to desired heart size
+        sf::Vector2u texSize = heart_texture_.getSize();
+        float scaleX = config::lives::heart_size / static_cast<float>(texSize.x);
+        float scaleY = config::lives::heart_size / static_cast<float>(texSize.y);
+        heart_sprite_->setScale({scaleX, scaleY});
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load heart texture 'assets/imgs/heart.png'\n";
+    }
+
     // --- Configure game over title text ---
     game_over_title_.setFont(font_);
     game_over_title_.setCharacterSize(config::game_over::title_font_size);
@@ -142,6 +158,9 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
 
     // --- Create player ---
     create_player();
+
+    // --- Initialize player lives ---
+    lives_ = config::lives::max_lives;
 
     // --- Register systems ---
     // --- Load starfield background texture ---
@@ -264,7 +283,8 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     systems_.push_back(std::make_unique<GameOverSystem>(
         cm_,
         static_cast<float>(screen_height_),
-        &game_over_
+        &game_over_,
+        &lives_
     ));
 }
 
@@ -520,6 +540,25 @@ void Game::render()
                     window_.draw(shape->rect);
                 }
             }
+        }
+    }
+
+    // --- Draw lives (hearts) in top-right corner ---
+    if (heart_sprite_ && lives_ > 0)
+    {
+        float heart_size = config::lives::heart_size;
+        float spacing = config::lives::heart_spacing;
+        float margin_right = config::lives::margin_right;
+        float margin_top = config::lives::margin_top;
+
+        float total_width = static_cast<float>(lives_) * heart_size + (static_cast<float>(lives_) - 1.0f) * spacing;
+        float start_x = static_cast<float>(screen_width_) - margin_right - total_width;
+        float y = margin_top;
+
+        for (int i = 0; i < lives_; ++i)
+        {
+            heart_sprite_->setPosition({start_x + static_cast<float>(i) * (heart_size + spacing), y});
+            window_.draw(*heart_sprite_);
         }
     }
 
