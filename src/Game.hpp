@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include <string>
@@ -77,6 +78,14 @@ private:
     sf::Texture starfield_texture_;                     ///< Seamless starfield texture (512×512).
     std::unique_ptr<sf::Sprite> starfield_sprite1_;     ///< First  background sprite (nullptr if fallback).
     std::unique_ptr<sf::Sprite> starfield_sprite2_;     ///< Second background sprite (nullptr if fallback).
+
+    // --- Sound effects ---
+    sf::SoundBuffer laser_buffer_;                          ///< Laser shot sound buffer.
+    std::unique_ptr<sf::Sound> laser_sound_;                ///< Laser shot sound (nullptr if load failed).
+    sf::SoundBuffer hit_buffer_;                            ///< Enemy hit sound buffer.
+    std::unique_ptr<sf::Sound> hit_sound_;                  ///< Enemy hit sound (nullptr if load failed).
+    sf::SoundBuffer explosion_buffer_;                      ///< Enemy explosion sound buffer.
+    std::unique_ptr<sf::Sound> explosion_sound_;            ///< Enemy explosion sound (nullptr if load failed).
 };
 
 #endif // GAME_HPP

@@ -20,13 +20,13 @@
 - [x] Enemy drone sprite — Sprite ECS component, textured enemy (AI-generated enemy_drone.png)
 - [x] Scrolling starfield background with infinite vertical scroll
 - [x] Sound-gen MCP server — procedural audio (5 sound types), README
+- [x] Sound effects integration — laser on shoot, hit on damage, explosion on destruction (enemy HP=2)
 
 ## Backlog
-1. Integrate sounds into game (sf::SoundBuffer)
-2. Player lives / game over condition
-3. Main menu / Game Over scenes
+1. Player lives / game over condition
+2. Main menu / Game Over scenes
 
 ## Known Issues
 - Entity without all components silently skipped in render — no error feedback
 - CollisionSystem O(n*m) per frame — acceptable for current scale
-- Enemy HP=1 means single-bullet kill; journal initially mis-reported as 2
+- Explosion sound may clip if enemies die in rapid succession (multiple overlapping sf::Sound instances)

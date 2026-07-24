@@ -35,6 +35,25 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     // Start the FPS clock
     fps_clock_.restart();
 
+    // --- Load sound effects ---
+    // Generated 2026-07-23 via sound-gen MCP (laser type, 0.3s)
+    if (laser_buffer_.loadFromFile("assets/sounds/player_laser.wav"))
+        laser_sound_ = std::make_unique<sf::Sound>(laser_buffer_);
+    else
+        sf::err() << "Warning: Could not load 'assets/sounds/player_laser.wav'\n";
+
+    // Generated 2026-07-23 via sound-gen MCP (hit type, 0.2s)
+    if (hit_buffer_.loadFromFile("assets/sounds/enemy_hit.wav"))
+        hit_sound_ = std::make_unique<sf::Sound>(hit_buffer_);
+    else
+        sf::err() << "Warning: Could not load 'assets/sounds/enemy_hit.wav'\n";
+
+    // Generated 2026-07-23 via sound-gen MCP (explosion type, 0.5s)
+    if (explosion_buffer_.loadFromFile("assets/sounds/enemy_explosion.wav"))
+        explosion_sound_ = std::make_unique<sf::Sound>(explosion_buffer_);
+    else
+        sf::err() << "Warning: Could not load 'assets/sounds/enemy_explosion.wav'\n";
+
     // --- Register component types ---
     cm_.register_component<Transform>();
     cm_.register_component<Velocity>();
@@ -87,7 +106,8 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         config::player::speed,
         config::bullet::speed,
         config::bullet::cooldown,
-        config::bullet::size
+        config::bullet::size,
+        laser_sound_.get()
     ));
 
     // Try to load enemy texture for sprite rendering
@@ -117,7 +137,12 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
 
     systems_.push_back(std::make_unique<MovementSystem>(cm_));
 
-    systems_.push_back(std::make_unique<CollisionSystem>(cm_, &score_));
+    systems_.push_back(std::make_unique<CollisionSystem>(
+        cm_,
+        &score_,
+        hit_sound_.get(),
+        explosion_sound_.get()
+    ));
 
     systems_.push_back(std::make_unique<BulletCleanupSystem>(
         cm_,

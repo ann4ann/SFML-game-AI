@@ -10,7 +10,8 @@ PlayerMovementSystem::PlayerMovementSystem(ComponentManager& cm,
                                            float speed,
                                            float bulletSpeed,
                                            float cooldown,
-                                           float bulletSize)
+                                           float bulletSize,
+                                           sf::Sound* laserSound)
     : cm_(cm)
     , screen_width_(screenWidth)
     , screen_height_(screenHeight)
@@ -19,6 +20,7 @@ PlayerMovementSystem::PlayerMovementSystem(ComponentManager& cm,
     , bullet_speed_(bulletSpeed)
     , fire_cooldown_(cooldown)
     , bullet_size_(bulletSize)
+    , laser_sound_(laserSound)
 {
 }
 
@@ -91,6 +93,9 @@ void PlayerMovementSystem::update(float dt)
         // Spawn bullet just above the player's top edge
         float bulletX = transform->position.x;
         float bulletY = transform->position.y - halfH - bullet_size_ / 2.0f;
+
+        // Play laser sound effect (if loaded)
+        if (laser_sound_) laser_sound_->play();
 
         Entity bullet((*next_entity_id_)++);
         cm_.add_component(bullet, Transform{sf::Vector2f{bulletX, bulletY}});

@@ -1,6 +1,7 @@
 #ifndef COLLISION_SYSTEM_HPP
 #define COLLISION_SYSTEM_HPP
 
+#include <SFML/Audio.hpp>
 #include <vector>
 #include "ecs/System.hpp"
 #include "ecs/ComponentManager.hpp"
@@ -13,7 +14,12 @@ class CollisionSystem : public System {
 public:
     /// @param cm Reference to the component manager.
     /// @param score Optional pointer to an external score counter (may be null).
-    explicit CollisionSystem(ComponentManager& cm, int* score = nullptr);
+    /// @param hitSound Pointer to the sf::Sound for bullet-enemy hit (may be null).
+    /// @param explosionSound Pointer to the sf::Sound for enemy destruction (may be null).
+    CollisionSystem(ComponentManager& cm,
+                    int* score = nullptr,
+                    sf::Sound* hitSound = nullptr,
+                    sf::Sound* explosionSound = nullptr);
 
     /// @brief Checks all bullet-enemy pairs for AABB overlap and resolves collisions.
     /// @param dt Delta time in seconds (unused — collisions are frame-independent).
@@ -22,6 +28,8 @@ public:
 private:
     ComponentManager& cm_;
     int* score_;
+    sf::Sound* hit_sound_;
+    sf::Sound* explosion_sound_;
 
     /// @brief Removes all components associated with a bullet entity.
     /// @param entity The bullet entity to clean up.

@@ -1,6 +1,7 @@
 #ifndef PLAYER_MOVEMENT_SYSTEM_HPP
 #define PLAYER_MOVEMENT_SYSTEM_HPP
 
+#include <SFML/Audio.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include "ecs/System.hpp"
 #include "ecs/ComponentManager.hpp"
@@ -25,7 +26,8 @@ public:
                          float speed = 300.0f,
                          float bulletSpeed = 500.0f,
                          float cooldown = 0.25f,
-                         float bulletSize = 8.0f);
+                         float bulletSize = 8.0f,
+                         sf::Sound* laserSound = nullptr);
 
     /// @brief Processes input and updates player position / spawns bullets.
     /// @param dt Delta time in seconds.
@@ -41,6 +43,7 @@ private:
     float fire_cooldown_;
     float bullet_size_;
     float time_since_last_shot_ = 0.0f;
+    sf::Sound* laser_sound_;
 
     /// @brief Returns true if a key is currently pressed.
     static bool is_key_pressed(sf::Keyboard::Key key);
