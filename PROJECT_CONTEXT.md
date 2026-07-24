@@ -98,5 +98,6 @@ assets/sounds/player_laser.wav, enemy_hit.wav, enemy_explosion.wav
 - `activeContext.md` — current session (🔴🟡🟢 markers)
 - `productContext.md` — stable project overview (do not change)
 - `progress.md` — in-progress, completed, backlog, known issues
-- `systemPatterns-core.md` — architecture overview + component table
-- `systemPatterns-details.md` — detailed patterns (scenes, resources, collision, SFML API)
+- `systemPatterns-core.md` — architecture invariants (short, stable)
+- `systemPatterns-currentSet.md` — current component/system inventory (use only when explicitly asked)
+- `systemPatterns-details.md` — non-critical patterns (scenes, resources, cross-platform, SFML API)
