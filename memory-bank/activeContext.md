@@ -1,29 +1,17 @@
 # Active Context
+> **Purpose**:  Context of the current task only
 
 ## 🔴 CRITICAL
-- **Current feature**: Bullet sprite instead shape — completed
+- **Current task**: Token optimization setup — create PROJECT_CONTEXT.md, update .clinerules, update memory-bank
 
 ## 🟡 ACTIVE DECISIONS
-- **Asset pipeline**: Image-gen MCP for visual assets, Sound-gen MCP for audio assets
-- **Sound-gen MCP**: 5 procedural sound types (laser, explosion, powerup, hit, pickup) — pure Python WAV generation
-
+- **Token optimization**: Read PROJECT_CONTEXT.md first; use search_files/list_code_definition_names; batch tool calls
+- **New rules**: Reading limit 3 files/step; forbidden: dev-journal.md, memory-bank/*, mcp-servers/* (unless MCP task)
+- **Split systemPatterns-core.md** → invariants (core) + currentSet (inventory); added currentSet rule to .clinerules
+- **Cleaned systemPatterns-details.md** — removed obsolete or duplicate items, added details usage rule to .clinerules
+- **Removed duplicates**: feature workflow now only in .clinerules (systemPatterns-core style); Testing Strategy moved to .clinerules; reference info moved to PROJECT_CONTEXT.md
 
 ## 🟢 CONTEXT
-
-### What's Working
-- CMake project `space-shooter` with SFML 3.0, MinGW build
-- Game loop: process_events → update(dt) → render, 800×600 window
-- ECS: ComponentManager, Entity, System
-- **10 components**: Transform, Velocity, Sprite, Shape, PlayerTag, EnemyTag, BulletTag, Health, Lifetime, ExplosionAnim
-- **7 systems**: PlayerMovement, EnemySpawn, Movement, CollisionSystem (+scoring), BulletCleanup, ExplosionAnimationSystem
-- **Config.hpp** with 7 namespaces: `config::window`, `config::player`, `config::bullet`, `config::enemy`, `config::score`, `config::background`, `config::explosion`
-- **Rendering**: PlayerTag (sprite), EnemyTag (sprite via Sprite component), Explosion (sprite via Sprite + ExplosionAnim), BulletTag (yellow) via Shape::rect
-- **HUD**: FPS (green, top-left), Score (white, below FPS)
-- **Image-gen MCP**: server_ga.py (Gen-API Flux-2), README, fallback support
-- **Sound-gen MCP**: server.py, README, 5 procedural sound types
-- **Sound effects**: Laser on shoot (PlayerMovementSystem), hit on damage + explosion on destruction (CollisionSystem)
-- **Visual effects**: Explosion animation on enemy kill via ExplosionAnimationSystem (frame-based, auto-remove)
-- **Completed**: Player, Enemy and Bullet sprites, Scrolling starfield background, Sound integration, Explosion animation
-
-### Next Steps
-1. Main menu / Game Over scenes
+- PROJECT_CONTEXT.md created — single reference for all project knowledge
+- .clinerules updated with "Token Optimization (CRITICAL)" section
+- Next: user will give step-by-step tasks

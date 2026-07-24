@@ -1,4 +1,5 @@
 # Progress
+> **Purpose**:  Reflects global status and milestones
 
 ## In Progress
 - [ ] Main menu / Game Over scenes
