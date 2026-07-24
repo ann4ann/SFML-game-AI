@@ -11,6 +11,7 @@ PlayerMovementSystem::PlayerMovementSystem(ComponentManager& cm,
                                            float bulletSpeed,
                                            float cooldown,
                                            float bulletSize,
+                                           std::shared_ptr<sf::Texture> bulletTex,
                                            sf::Sound* laserSound)
     : cm_(cm)
     , screen_width_(screenWidth)
@@ -20,6 +21,7 @@ PlayerMovementSystem::PlayerMovementSystem(ComponentManager& cm,
     , bullet_speed_(bulletSpeed)
     , fire_cooldown_(cooldown)
     , bullet_size_(bulletSize)
+    , bullet_texture_(std::move(bulletTex))
     , laser_sound_(laserSound)
 {
 }
@@ -101,6 +103,10 @@ void PlayerMovementSystem::update(float dt)
         cm_.add_component(bullet, Transform{sf::Vector2f{bulletX, bulletY}});
         cm_.add_component(bullet, Velocity{sf::Vector2f{0.0f, -bullet_speed_}});
         cm_.add_component(bullet, Shape{sf::Vector2f{bullet_size_, bullet_size_}, sf::Color::Yellow});
+        if (bullet_texture_)
+        {
+            cm_.add_component(bullet, Sprite{bullet_texture_, sf::Vector2f{config::bullet::sprite_size, config::bullet::sprite_size}});
+        }
         cm_.add_component(bullet, BulletTag{});
         cm_.add_component(bullet, Lifetime{config::bullet::lifetime});
     }

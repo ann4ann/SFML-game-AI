@@ -22,10 +22,11 @@ namespace player {
 
 /// @brief Bullet settings.
 namespace bullet {
-    constexpr float speed      = 500.0f;  ///< Upward speed (px/s)
-    constexpr float size       = 8.0f;    ///< Square side length (px)
-    constexpr float cooldown   = 0.25f;   ///< Min time between shots (s) → 4 shots/s
-    constexpr float lifetime   = 2.0f;    ///< Max lifetime before auto-removal (s)
+    constexpr float speed       = 500.0f;  ///< Upward speed (px/s)
+    constexpr float size        = 8.0f;    ///< Square side length (px) — hitbox size
+    constexpr float sprite_size = 16.0f;   ///< Rendered sprite size (px) — 256×256 texture scaled down
+    constexpr float cooldown    = 0.25f;   ///< Min time between shots (s) → 4 shots/s
+    constexpr float lifetime    = 2.0f;    ///< Max lifetime before auto-removal (s)
 } // namespace bullet
 
 /// @brief Enemy settings.
