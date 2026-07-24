@@ -60,7 +60,9 @@
 - Added an explosion entity with ExplosionAnim + ExplosionAnimationSystem, and CollisionSystem now spawns it at the enemy’s position on death
 - Replaced bullet shape textured sprite (use fallback)
 - Added "magic numbers → Config.hpp" rule to .clinerules
+- Added token-optimimisation rules, created PROJECT_CONTEXT.md, refactor systemPatterns and removed duplicate rules
 
 ### Why it matters / What's next
 - Game now has audio and visual feedback for shooting, hitting, and destroying enemies
+- Token-optimisation now allows to use agents more efficiently
 - Next: final visual polish, main menu / Game Over scenes

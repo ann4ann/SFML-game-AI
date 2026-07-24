@@ -36,6 +36,31 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     // Start the FPS clock
     fps_clock_.restart();
 
+    // --- Load and set window icon ---
+    // Generated 2026-07-25 via image-gen MCP (pixel art, 256×256)
+    if (icon_image_.loadFromFile("assets/imgs/app_icon.png"))
+    {
+        // Scale down from 256×256 to 32×32 using nearest-neighbor (preserves pixel art sharpness)
+        sf::Image scaled_icon;
+        scaled_icon.resize(sf::Vector2u{config::icon::size, config::icon::size});
+        unsigned int src_size = icon_image_.getSize().x;
+        for (unsigned int y = 0; y < config::icon::size; ++y)
+        {
+            for (unsigned int x = 0; x < config::icon::size; ++x)
+            {
+                unsigned int src_x = x * src_size / config::icon::size;
+                unsigned int src_y = y * src_size / config::icon::size;
+                scaled_icon.setPixel(sf::Vector2u{x, y}, icon_image_.getPixel(sf::Vector2u{src_x, src_y}));
+            }
+        }
+        icon_image_ = std::move(scaled_icon);
+        window_.setIcon(icon_image_.getSize(), icon_image_.getPixelsPtr());
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load window icon 'assets/imgs/app_icon.png'\n";
+    }
+
     // --- Load sound effects ---
     // Generated 2026-07-23 via sound-gen MCP (laser type, 0.3s)
     if (laser_buffer_.loadFromFile("assets/sounds/player_laser.wav"))

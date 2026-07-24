@@ -13,6 +13,11 @@ namespace window {
     constexpr unsigned int height = 600;
 } // namespace window
 
+/// @brief Window icon settings.
+namespace icon {
+    constexpr unsigned int size = 32;  ///< Window icon size (px) — scaled from 256×256 source
+} // namespace icon
+
 /// @brief Player settings.
 namespace player {
     constexpr float speed      = 300.0f;  ///< Movement speed (px/s)

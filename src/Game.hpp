@@ -79,6 +79,9 @@ private:
     std::unique_ptr<sf::Sprite> starfield_sprite1_;     ///< First  background sprite (nullptr if fallback).
     std::unique_ptr<sf::Sprite> starfield_sprite2_;     ///< Second background sprite (nullptr if fallback).
 
+    // --- Window icon ---
+    sf::Image icon_image_;  ///< 32×32 window icon (scaled from 256×256 source).
+
     // --- Bullet texture ---
     sf::Texture bullet_texture_;                                 ///< Bullet energy bolt texture.
     std::shared_ptr<sf::Texture> bullet_tex_shared_;             ///< Shared ptr for ECS (nullptr if fallback).
