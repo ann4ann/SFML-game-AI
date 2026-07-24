@@ -42,7 +42,20 @@ void GameOverSystem::check_enemy_bottom()
         float enemy_bottom = transform->position.y + shape->rect.getSize().y * 0.5f;
         if (enemy_bottom >= screen_height_)
         {
-            *game_over_ = true;
+            // Lose a life when an enemy reaches the bottom
+            if (lives_ && *lives_ > 0)
+            {
+                *lives_ -= 1;
+            }
+
+            // Remove the enemy
+            remove_enemy_components(enemy);
+
+            // Game over if no lives remain
+            if (lives_ && *lives_ <= 0)
+            {
+                *game_over_ = true;
+            }
             return;
         }
     }
