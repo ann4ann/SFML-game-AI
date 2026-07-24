@@ -7,6 +7,7 @@
 #include "systems/BulletCleanupSystem.hpp"
 #include "systems/CollisionSystem.hpp"
 #include "systems/ExplosionAnimationSystem.hpp"
+#include "systems/GameOverSystem.hpp"
 
 Game::Game(unsigned int width, unsigned int height, const std::string& title)
     : window_(sf::VideoMode({width, height}), title)
@@ -32,6 +33,53 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     score_text_.setFillColor(sf::Color::White);
     score_text_.setPosition({10.0f, 34.0f});
     score_text_.setString("Score: 0");
+
+    // --- Load game over background ---
+    // Generated 2026-07-25 via image-gen MCP with prompt: "A dark space void with subtle red nebula, pixel art"
+    if (game_over_bg_texture_.loadFromFile("assets/imgs/game_over_bg.png"))
+    {
+        game_over_bg_sprite_ = std::make_unique<sf::Sprite>(game_over_bg_texture_);
+        // Scale to cover full screen (texture is 512×512, screen may differ)
+        sf::Vector2u texSize = game_over_bg_texture_.getSize();
+        game_over_bg_sprite_->setScale({
+            static_cast<float>(screen_width_) / static_cast<float>(texSize.x),
+            static_cast<float>(screen_height_) / static_cast<float>(texSize.y)
+        });
+        game_over_bg_sprite_->setPosition({0.0f, 0.0f});
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load game over background 'assets/imgs/game_over_bg.png', "
+                  << "using black background.\n";
+    }
+
+    // --- Configure game over title text ---
+    game_over_title_.setFont(font_);
+    game_over_title_.setCharacterSize(config::game_over::title_font_size);
+    game_over_title_.setFillColor(sf::Color::Red);
+    game_over_title_.setString("GAME OVER");
+    {
+        auto bounds = game_over_title_.getLocalBounds();
+        game_over_title_.setOrigin({bounds.size.x / 2.0f, bounds.size.y / 2.0f});
+        game_over_title_.setPosition({
+            static_cast<float>(screen_width_) / 2.0f,
+            static_cast<float>(screen_height_) / 2.0f + config::game_over::title_offset_y
+        });
+    }
+
+    // --- Configure game over score text ---
+    game_over_score_.setFont(font_);
+    game_over_score_.setCharacterSize(config::game_over::score_font_size);
+    game_over_score_.setFillColor(sf::Color::White);
+    game_over_score_.setString("Final Score: " + std::to_string(score_));
+    {
+        auto bounds = game_over_score_.getLocalBounds();
+        game_over_score_.setOrigin({bounds.size.x / 2.0f, bounds.size.y / 2.0f});
+        game_over_score_.setPosition({
+            static_cast<float>(screen_width_) / 2.0f,
+            static_cast<float>(screen_height_) / 2.0f + config::game_over::score_offset_y
+        });
+    }
 
     // Start the FPS clock
     fps_clock_.restart();
@@ -210,6 +258,14 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     ));
 
     systems_.push_back(std::make_unique<ExplosionAnimationSystem>(cm_));
+
+    // --- Game over detection system ---
+    // Checks enemy bottom-boundary breach and player-enemy collision.
+    systems_.push_back(std::make_unique<GameOverSystem>(
+        cm_,
+        static_cast<float>(screen_height_),
+        &game_over_
+    ));
 }
 
 void Game::create_player()
@@ -288,6 +344,9 @@ void Game::process_events()
 
 void Game::update(float dt)
 {
+    if (game_over_)
+        return;  // Game over — skip all updates
+
     // --- Update starfield scroll ---
     if (starfield_texture_.getNativeHandle() != 0)
     {
@@ -329,6 +388,26 @@ void Game::update(float dt)
 void Game::render()
 {
     window_.clear(sf::Color::Black);
+
+    if (game_over_)
+    {
+        // --- Draw game over screen ---
+        if (game_over_bg_sprite_)
+            window_.draw(*game_over_bg_sprite_);
+
+        // Update and re-center final score text
+        game_over_score_.setString("Final Score: " + std::to_string(score_));
+        {
+            auto bounds = game_over_score_.getLocalBounds();
+            game_over_score_.setOrigin({bounds.size.x / 2.0f, bounds.size.y / 2.0f});
+        }
+
+        window_.draw(game_over_title_);
+        window_.draw(game_over_score_);
+
+        window_.display();
+        return;
+    }
 
     // --- Draw starfield background ---
     if (starfield_texture_.getNativeHandle() != 0)
