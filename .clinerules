@@ -47,18 +47,18 @@
 
 ## Memory-Bank Protocol
 ### File structure:
-1. **Active context** (max 35 lines) — current session only
+1. **Active context** (max 35 lines) — context of the current task only
 - Use 🔴🟡🟢 markers for prioritization
 
-2. **System Patterns** (max 40 lines) — architecture
+2. **System Patterns** (max 40 lines per file) — architecture
 - Only one component table, NO code details
 - Details are provided separately in project file links
 
 3. **Product Context** (do not change) — this is the stable layer
 
-4. **Progress** (max 25 lines) — current only
-- In Progress = max 2 items
-- Completed = only for the last week
+4. **Progress** (max 25 lines) — reflects global status and milestones
+- In Progress = max 2 points
+- Completed = max 15 point (keep newest), only for the last week
 - Backlog = only the top 3
 - Known Issues = max 3 items
 
@@ -101,3 +101,24 @@
 - The build-test MCP server wraps CMake and CTest. Call it after every significant change.
 - Any new .cpp file must be added to CMakeLists.txt.
 - The CI workflow in GitHub Actions must be kept in sync with local build options.
+
+## Token Optimization (CRITICAL)
+- **Always read `PROJECT_CONTEXT.md` first** before reading source files — it contains the full architecture summary.
+- **Use `search_files`** for targeted pattern searches instead of reading entire files.
+- **Use `list_code_definition_names`** for quick overview of code structure (classes, functions).
+- **Use `read_file` with `start_line`/`end_line`** to read only specific sections of large files.
+- **Batch independent tool calls** in a single response (e.g., reading multiple files in parallel).
+- **Never re-read files already in context** — use the project context document as reference.
+- **Use `list_files`** to check directory structure before reading individual files.
+- When editing, use `replace_in_file` with minimal SEARCH/REPLACE blocks — never rewrite entire files.
+
+### Reading Rules
+- **Before reading files — study PROJECT_CONTEXT.md first.** Only after reading the context document, read specific source files if truly needed.
+- **Allowed to read (code-solutions).** Reading source files is permitted when you need to understand how a solution is implemented (analysis of existing code).
+- **Prohibited for feature solving (as reading sources).** When implementing a new feature, do NOT read source files as reading sources. Rely on `PROJECT_CONTEXT.md`. Source files are read only for making edits.
+- **Reading limit per step.** Maximum **3 files** per single step (one response). If more files are needed, do it in multiple steps.
+
+### Forbidden to Read
+- **`dev-journal.md`** — human-readable history only, do not read.
+- **`memory-bank/*`** — use only as short invariants, NOT as "read and retell" sources.
+- **`mcp-servers/*`** — read ONLY if the task is about MCP servers.
