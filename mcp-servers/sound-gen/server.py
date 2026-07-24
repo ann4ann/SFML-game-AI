@@ -115,34 +115,40 @@ def _apply_envelope(samples: list[float],
 # ---------------------------------------------------------------------------
 
 def _gen_laser(duration: float = 0.3) -> list[float]:
-    """Sharp rising sweep — classic laser."""
+    """Sharp rising sweep — classic laser. Moderate volume."""
     sr = SAMPLE_RATE
-    raw = _sweep(sr, 400.0, 4800.0, duration, amplitude=0.6)
+    raw = _sweep(sr, 400.0, 4800.0, duration, amplitude=0.25)
     return _apply_envelope(raw, attack=0.01, release=0.05)
 
 
-def _gen_explosion(duration: float = 1.0) -> list[float]:
-    """White noise burst with a low rumble tail."""
+def _gen_explosion(duration: float = 1.5) -> list[float]:
+    """Deep, powerful explosion — heavy rumble + bright crack + sub bass + low bang."""
     sr = SAMPLE_RATE
-    # Noise burst
-    noise_part = _noise(sr, duration * 0.3, amplitude=0.7)
-    # Low rumble (sine at 60 Hz)
-    rumble_part = _sine(sr, 60.0, duration, amplitude=0.4)
-    # Combine: noise fades, rumble sustains
+    # Initial bright noise burst (short, punchy) — the "crack"
+    crack = _noise(sr, duration * 0.12, amplitude=0.9)
+    # Low rumble (sine at 65 Hz) — main body
+    rumble = _sine(sr, 65.0, duration * 0.85, amplitude=1.0)
+    # Sub-bass thump (sine at 40 Hz) — adds weight
+    sub = _sine(sr, 40.0, duration * 0.6, amplitude=0.85)
+    # Low-frequency bang — a short sweep from 300 Hz → 60 Hz for impact
+    bang = _sweep(sr, 300.0, 60.0, duration * 0.25, amplitude=1.0)
+    # Combine
     combined: list[float] = []
-    n_noise = len(noise_part)
-    n_rumble = len(rumble_part)
-    n_total = max(n_noise, n_rumble)
+    n_total = max(len(crack), len(rumble), len(sub), len(bang))
     for i in range(n_total):
         v = 0.0
-        if i < n_noise:
-            # Fade noise over its duration
-            fade = 1.0 - (i / n_noise)
-            v += noise_part[i] * fade
-        if i < n_rumble:
-            v += rumble_part[i]
+        if i < len(crack):
+            fade = 1.0 - (i / len(crack))
+            v += crack[i] * fade
+        if i < len(rumble):
+            v += rumble[i]
+        if i < len(sub):
+            v += sub[i]
+        if i < len(bang):
+            fade = 1.0 - (i / len(bang))
+            v += bang[i] * fade
         combined.append(v)
-    return _apply_envelope(combined, attack=0.005, release=0.2)
+    return _apply_envelope(combined, attack=0.001, release=0.25)
 
 
 def _gen_powerup(duration: float = 0.5) -> list[float]:
@@ -158,11 +164,13 @@ def _gen_powerup(duration: float = 0.5) -> list[float]:
     return samples
 
 
-def _gen_hit(duration: float = 0.2) -> list[float]:
-    """Short impact — noise burst + low thud."""
+def _gen_hit(duration: float = 0.15) -> list[float]:
+    """Short, soft impact — light tap (quieter than explosion)."""
     sr = SAMPLE_RATE
-    noise_part = _noise(sr, duration * 0.5, amplitude=0.5)
-    thud = _sine(sr, 120.0, duration, amplitude=0.5)
+    # Quick noise burst — low volume
+    noise_part = _noise(sr, duration * 0.4, amplitude=0.25)
+    # Soft thud at a higher frequency (less boomy than explosion)
+    thud = _sine(sr, 200.0, duration, amplitude=0.2)
     combined: list[float] = []
     n_noise = len(noise_part)
     n_thud = len(thud)
@@ -174,7 +182,7 @@ def _gen_hit(duration: float = 0.2) -> list[float]:
         if i < n_thud:
             v += thud[i]
         combined.append(v)
-    return _apply_envelope(combined, attack=0.001, release=0.08)
+    return _apply_envelope(combined, attack=0.002, release=0.05)
 
 
 def _gen_pickup(duration: float = 0.3) -> list[float]:
@@ -195,9 +203,9 @@ def _gen_pickup(duration: float = 0.3) -> list[float]:
 # ---------------------------------------------------------------------------
 _GENERATORS: dict[str, tuple] = {
     "laser":     (_gen_laser,     0.3),
-    "explosion": (_gen_explosion, 1.0),
+    "explosion": (_gen_explosion, 1.5),
     "powerup":   (_gen_powerup,   0.5),
-    "hit":       (_gen_hit,       0.2),
+    "hit":       (_gen_hit,       0.15),
     "pickup":    (_gen_pickup,    0.3),
 }
 
