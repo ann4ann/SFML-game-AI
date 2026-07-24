@@ -56,15 +56,18 @@
     - explosion spritesheet (4 frames)
     - bullet texture
     - icon image
+    - live heart image
 - Improved MCP sound-gen generators: laser, hit, explosion
 - Added three sound slots on shooting, enemy hit and destruction.
 - Added an explosion effect at the enemy’s position on death
-- Added Game over Screen
+- Added Game over Screen 
+- Added lives_ tracking and heart sprite rendering in top-right corner
 - Replaced bullet shape textured sprite (use fallback)
 - Added window Icon
 - Added token-optimimisation rules, PROJECT_CONTEXT.md and removed duplicate rules
 
 ### Why it matters / What's next
 - Game now has audio and visual feedback for shooting, hitting, destroying enemies, game over; icon
+- Players now have 3 lives before Game Over, improving game flow
 - Token-optimisation now allows to use agents more efficiently
 
