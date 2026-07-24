@@ -1,13 +1,13 @@
 # Active Context
 
 ## 🔴 CRITICAL
-- **Current feature**: Sound-gen MCP server — completed
+- **Current feature**: Sound effects integration — completed
 
 ## 🟡 ACTIVE DECISIONS
 - **Asset pipeline**: Image-gen MCP for visual assets, Sound-gen MCP for audio assets
 - **Sound-gen MCP**: 5 procedural sound types (laser, explosion, powerup, hit, pickup) — pure Python WAV generation
 - **Save path pattern for sounds**: `assets/sounds/<filename>.wav` via absolute `save_path` parameter
-
+- **Sound architecture**: `std::unique_ptr<sf::Sound>` stored in Game, raw pointers passed to systems (nullptr = silent fallback)
 
 ## 🟢 CONTEXT
 
@@ -22,9 +22,9 @@
 - **HUD**: FPS (green, top-left), Score (white, below FPS)
 - **Image-gen MCP**: server_ga.py (Gen-API Flux-2), README, fallback support
 - **Sound-gen MCP**: server.py, README, 5 procedural sound types
-- **Completed**: Player sprite, Enemy sprite, Scrolling starfield background, Sound-gen server
+- **Sound effects**: Laser on shoot (PlayerMovementSystem), hit on damage + explosion on destruction (CollisionSystem)
+- **Completed**: Player sprite, Enemy sprite, Scrolling starfield background, Sound-gen server, Sound integration
 
 ### Next Steps
-1. Integrate sounds into game (sf::SoundBuffer)
-2. Effects and final visual polish
-3. Main menu / Game Over scenes
+1. Effects and final visual polish
+2. Main menu / Game Over scenes

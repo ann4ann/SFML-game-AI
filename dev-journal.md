@@ -49,5 +49,12 @@
 - Background - infinite vertical scrolling tiles: 2 sprites high, one above the other
 - Created sound-gen MCP server: procedural WAV generation (pure Python) with 5 sound types: laser, explosion, powerup, hit, pickup
 
+## 2026-07-24 - Sound effects integration (laser, hit, explosion)
+### Done
+- Generated 3 sounds via sound-gen MCP: player_laser.wav, enemy_hit.wav, enemy_explosion.wav
+- Added three sound slots to Game class, PlayerMovementSystem on shooting and CollisionSystem on enemy hit and destruction 
+- Improved MCP sound-gen generators: laser, hit, explosion
+
 ### Why it matters / What's next
+- Game now has audio feedback for shooting, hitting, and destroying enemies
 - Next: effects, final visual polish
