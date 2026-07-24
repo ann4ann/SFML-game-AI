@@ -8,6 +8,7 @@
 - Follow consistent naming: CamelCase for classes, snake_case for functions/variables.
 - All game logic must be separated from rendering (ECS-like design preferred).
 - All text in project must be in English
+- All "magic" numeric/string constants must be defined in `Config.hpp` (or a dedicated config namespace) — never hardcode literals in logic or rendering code
 
 ## Development Process
 - The unit of development process is a Feature Development.
