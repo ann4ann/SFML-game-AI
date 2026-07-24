@@ -1,7 +1,6 @@
 # Progress
 
 ## In Progress
-- [ ] Effects and final visual polish
 - [ ] Main menu / Game Over scenes
 
 ## Completed
@@ -21,6 +20,7 @@
 - [x] Scrolling starfield background with infinite vertical scroll
 - [x] Sound-gen MCP server — procedural audio (5 sound types), README
 - [x] Sound effects integration — laser on shoot, hit on damage, explosion on destruction (enemy HP=2)
+- [x] Explosion animation — 4-frame spritesheet, ExplosionAnim component, ExplosionAnimationSystem, magic numbers in config
 
 ## Backlog
 1. Player lives / game over condition
