@@ -36,8 +36,20 @@ target_link_libraries(space-shooter PRIVATE
     SFML::Network
 )
 
-include(CTest)
-enable_testing()
+# --- Catch2 (only if testing is enabled) ---
+option(BUILD_TESTING "Build tests" ON)
+if(BUILD_TESTING)
+    include(FetchContent)
+    FetchContent_Declare(
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG v3.4.0
+    )
+    FetchContent_MakeAvailable(Catch2)
+
+    enable_testing()
+    add_subdirectory(tests)
+endif()
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
