@@ -71,16 +71,19 @@
 - Players now have 3 lives before Game Over, improving game flow
 - Token-optimisation now allows to use agents more efficiently
 
-## 2026-07-25 - Test-build MCP server + Catch2 test infrastructure
+## 2026-07-25 - Test-build MCP server + Catch2, Unit tests for Movement, Collision, Score, Spawn systems
 ### Done
 - Added test-build MCP server with 4 tools operational: configure, build, test, full_check
 - Added Catch2 smoke test (`Catch2 smoke test`), BUILD_TESTING option 
+- Extracted pure functions: `aabb_overlap()` (CollisionUtils.hpp), `award_kill_score()` (ScoreUtils.hpp)
+- 4 test files: `test_movement` (3 cases), `test_collision` (5 cases), `test_score` (2 cases), `test_spawn` (3 cases)
+- All tests passing via test-build MCP (configure + build + test = OK)
 
 ### Why it matters / What's next
 - MCP test-build can now be called after every change for CI-like verification
 - Next: main menu scene, more unit tests for game logic
+- Core game logic now has test coverage without SFML window dependency
 
 ### Issues / Lessons
-- `os.environ.copy()` is required — overriding PATH with a hardcoded string breaks cmake/ctest lookup
-
+- `os.environ.copy()` for test mcp is required — overriding PATH with a hardcoded string breaks cmake/ctest lookup
 
