@@ -5,8 +5,6 @@
 - [ ] Main menu scene
 
 ## Completed
-- [x] Scoring system — +10 points per enemy, displayed in top-left corner
-- [x] Game balance config — all magic numbers extracted into `Config.hpp`
 - [x] Image-gen MCP server — Gen-API Flux-2, README
 - [x] Player ship sprite — textured sprite (AI-generated player_ship.png)
 - [x] Enemy drone sprite — Sprite ECS component, textured enemy (AI-generated enemy_drone.png)
@@ -20,6 +18,7 @@
 - [x] Player lives system — 3 lives, heart icons in top-right, lose life on enemy collision, Game Over at 0
 - [x] Test-build MCP server — configure, build, test and full_check
 - [x] Catch2 test infrastructure — smoke test, BUILD_TESTING option
+- [x] Unit tests for Movement, Collision, Score, Spawn systems — 14 tests, pure functions extracted
 
 ## Backlog
 1. Main menu scene
