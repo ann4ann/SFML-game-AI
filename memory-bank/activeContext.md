@@ -2,15 +2,16 @@
 > **Purpose**:  Context of the current task only
 
 ## 🔴 CRITICAL
-- **Current task**: Preparing a Project for Testing with Catch2
-- **Branch**: `feature/build-test`
+- **Current task**: Unit tests for key systems (Movement, Collision, Score, Spawn)
+- **Branch**: `feature/unit-tests`
 
 ## 🟡 ACTIVE DECISIONS
-- `test` folder with `CMakeLists` and `test_main.cpp` was added
-- Smoke test: `Catch2 smoke test` in `test_main.cpp`
-- Updated `CMakeLists` in root folder with BUILD_TESTING otption
+- Refactored: extracted `aabb_overlap()` → `CollisionUtils.hpp`, `award_kill_score()` → `ScoreUtils.hpp`
+- Created 4 test files: `test_movement.cpp`, `test_collision.cpp`, `test_score.cpp`, `test_spawn.cpp`
+- Updated `tests/CMakeLists.txt` with new sources and SFML libs
+- All 14 tests passing
 
 ## 🟢 CONTEXT
-- test-build MCP server fully operational: configure, build, test, full_check
-- Smoke test: `Catch2 smoke test` — 1/1 passed
-- Feature complete
+- test-build MCP server: configure + build + test = OK
+- 14/14 tests passed across all 4 systems
+- Feature complete — ready to commit and push
