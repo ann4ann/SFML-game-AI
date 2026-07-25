@@ -1,0 +1,7 @@
+add_executable(test_main test_main.cpp)
+target_link_libraries(test_main PRIVATE Catch2::Catch2WithMain)
+target_compile_features(test_main PRIVATE cxx_std_17)
+
+# Подключаем тесты к CTest
+include(Catch)
+catch_discover_tests(test_main)

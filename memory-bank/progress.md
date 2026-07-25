@@ -18,6 +18,8 @@
 - [x] Window icon — pixel-art icon, set via sf::Image + setIcon
 - [x] Game Over state — enemy bottom-boundary + player-enemy collision, dark red nebula background, GAME OVER + final score display
 - [x] Player lives system — 3 lives, heart icons in top-right, lose life on enemy collision, Game Over at 0
+- [x] Test-build MCP server — configure, build, test and full_check
+- [x] Catch2 test infrastructure — smoke test, BUILD_TESTING option
 
 ## Backlog
 1. Main menu scene

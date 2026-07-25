@@ -71,3 +71,16 @@
 - Players now have 3 lives before Game Over, improving game flow
 - Token-optimisation now allows to use agents more efficiently
 
+## 2026-07-25 - Test-build MCP server + Catch2 test infrastructure
+### Done
+- Added test-build MCP server with 4 tools operational: configure, build, test, full_check
+- Added Catch2 smoke test (`Catch2 smoke test`), BUILD_TESTING option 
+
+### Why it matters / What's next
+- MCP test-build can now be called after every change for CI-like verification
+- Next: main menu scene, more unit tests for game logic
+
+### Issues / Lessons
+- `os.environ.copy()` is required — overriding PATH with a hardcoded string breaks cmake/ctest lookup
+
+
