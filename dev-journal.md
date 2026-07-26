@@ -87,13 +87,20 @@
 ### Issues / Lessons
 - `os.environ.copy()` for test mcp is required — overriding PATH with a hardcoded string breaks cmake/ctest lookup
 
-## 2026-07-26 - GitHub Actions CI workflow
+## 2026-07-26 - GitHub Actions CI workflow, Repository documentation overhaul
 ### Done
-- Created configuration file for CI/CD: push to stable branches, PR to all branches, manual dispatch
-- Added condition for MinGW paths for cross-platform compatibility
-- Runner: `ubuntu-26.04` with SFML 3.0 via apt
+- Created configuration file for CI/CD: push on release branches, PR to all branches, manual dispatch
+    - Added concurrency and pathts-ignore to CI config
+    - Added condition for MinGW paths for cross-platform compatibility
+    - Runner: `ubuntu-26.04` with SFML 3.0 via apt
+- Added Documentation:
+    - LICENSE (MIT), CHANGELOG.md (Keep a Changelog)
+    - docs/ARCHITECTURE.md with Mermaid diagrams (game loop, layer architecture)
+    - docs/AI_WORKFLOW.md — full vibe-coding process, MCP servers, Memory Bank
+- Rewrote README.md — badges, screenshots, architecture, AI workflow, build instructions, roadmap
 
 ### Why it matters / What's next
 - Every push/PR now automatically builds and runs all 14 tests on Linux CI
-- Next: main menu scene, Windows CI matrix
+- Documentation clearly shows both game architecture and AI-assisted development process
+- Next: main menu scene
 

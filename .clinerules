@@ -98,5 +98,11 @@
 
 ### Forbidden to Read
 - **`dev-journal.md`** — human-readable history only, do not read.
+- **`README.md`** — human-readable overview, AI uses `PROJECT_CONTEXT.md`.
+- **`CHANGELOG.md`** — human-readable version history, not relevant for AI.
+- **`LICENSE`** — legal file, not relevant for AI.
+- **`docs/AI_WORKFLOW.md`** — human-readable documentation, not relevant for AI.
+- **`docs/ARCHITECTURE.md`** — human-readable documentation, AI uses `systemPatterns-*.md`.
+- **`assets/screenshots/*`** — image files, not readable as text.
 - **`memory-bank/*`** — use only as short invariants, NOT as "read and retell" sources.
 - **`mcp-servers/*`** — read ONLY if the task is about MCP servers.

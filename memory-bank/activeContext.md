@@ -2,13 +2,18 @@
 > **Purpose**:  Context of the current task only
 
 ## 🔴 CRITICAL
-- **Current task**: CI cycle test (break → CI red → fix → CI green)
-- **Branch**: `feature/test-ci-cycle`
+- **Current task**: Repository documentation overhaul for public portfolio demo
+- **Branch**: `feature/project-documentation`
 
 ## 🟡 ACTIVE DECISIONS
-- Temporarily expanded CI push trigger to `[ "**" ]` for the test, then restored to original
-- Full cycle verified: broken test → CI red → fix → CI green → trigger restored
+- Project positioned as vibe-coding (AI-assisted development) educational showcase
+- README rewritten with architecture, AI workflow, build instructions
+- Mermaid diagrams added to documentation
+- Forbidden-to-read list expanded in .clinerules
 
 ## 🟢 CONTEXT
-- test-build MCP server: configure + build + test = OK
-- CI cycle test complete — ready to merge to main
+- Created: LICENSE (MIT), CHANGELOG.md, docs/ARCHITECTURE.md, docs/AI_WORKFLOW.md
+- Rewritten: README.md
+- Updated: .clinerules (forbidden files), dev-journal.md, progress.md
+- Committed, push pending
+- Next task: main menu scene

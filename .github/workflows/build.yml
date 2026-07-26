@@ -2,10 +2,30 @@ name: Build & Test
 
 on:
   push:
-    branches: [ "main", "master", "release/**" ]
+    branches: [ "release/**" ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - '.gitattributes'
+      - 'LICENSE'
+      - 'assets/**'
+      - 'mcp-servers/**'
   pull_request:
     branches: [ "**" ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - '.gitattributes'
+      - 'LICENSE'
+      - 'assets/**'
+      - 'mcp-servers/**'
   workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
