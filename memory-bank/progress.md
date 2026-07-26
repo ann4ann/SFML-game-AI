@@ -5,10 +5,6 @@
 - [ ] Main menu scene
 
 ## Completed
-- [x] Image-gen MCP server — Gen-API Flux-2, README
-- [x] Player ship sprite — textured sprite (AI-generated player_ship.png)
-- [x] Enemy drone sprite — Sprite ECS component, textured enemy (AI-generated enemy_drone.png)
-- [x] Scrolling starfield background with infinite vertical scroll
 - [x] Sound-gen MCP server — procedural audio (5 sound types), README
 - [x] Sound effects integration — laser on shoot, hit on damage, explosion on destruction (enemy HP=2)
 - [x] Explosion animation — 4-frame spritesheet, ExplosionAnim component, ExplosionAnimationSystem, magic numbers in config
@@ -19,9 +15,11 @@
 - [x] Test-build MCP server — configure, build, test and full_check
 - [x] Catch2 test infrastructure — smoke test, BUILD_TESTING option
 - [x] Unit tests for Movement, Collision, Score, Spawn systems — 14 tests, pure functions extracted
+- [x] GitHub Actions CI workflow — push/PR triggers, manual dispatch, Ubuntu 26.04, SFML 3.0 via apt
 
 ## Backlog
 1. Main menu scene
+2. Windows CI matrix
 
 ## Known Issues
 - Entity without all components silently skipped in render — no error feedback
