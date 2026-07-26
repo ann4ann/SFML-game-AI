@@ -89,7 +89,8 @@
 
 ## 2026-07-26 - GitHub Actions CI workflow
 ### Done
-- Created configuration file for CI/CD: push to stable branches, PR to all branches, manual dispatch
+- Created configuration file for CI/CD: push on release branches, PR to all branches, manual dispatch
+- Added concurrency and pathts-ignore to CI config
 - Added condition for MinGW paths for cross-platform compatibility
 - Runner: `ubuntu-26.04` with SFML 3.0 via apt
 
