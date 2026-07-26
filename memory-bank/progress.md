@@ -5,6 +5,7 @@
 - [ ] Main menu scene
 
 ## Completed
+- [x] Repository documentation overhaul — LICENSE, CHANGELOG, README, ARCHITECTURE, AI_WORKFLOW, .clinerules
 - [x] CI optimization — Fixed duplication of CI workflow launch for PR and merge, added `paths-ignore`
 - [x] CI cycle test
 - [x] GitHub Actions CI workflow — push/PR triggers, manual dispatch, Ubuntu 26.04, SFML 3.0 via apt
@@ -18,7 +19,6 @@
 - [x] Explosion animation — 4-frame spritesheet, ExplosionAnim component, ExplosionAnimationSystem, magic numbers in config
 - [x] Sound effects integration — laser on shoot, hit on damage, explosion on destruction (enemy HP=2)
 - [x] Sound-gen MCP server — procedural audio (5 sound types), README
-
 
 ## Backlog
 1. Main menu scene

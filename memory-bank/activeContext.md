@@ -2,14 +2,18 @@
 > **Purpose**:  Context of the current task only
 
 ## 🔴 CRITICAL
-- **Current task**: Optimize CI workflow — add `concurrency`, `paths-ignore`, remove `push` for main/master
-- **Branch**: `feature/ci-optimization`
+- **Current task**: Repository documentation overhaul for public portfolio demo
+- **Branch**: `feature/project-documentation`
 
 ## 🟡 ACTIVE DECISIONS
-- Simple plan chosen: `concurrency` + `paths-ignore` + remove `push` for main/master
-- Duplicate builds on PR merge eliminated by removing `push` for main/master
-- Non-code changes (docs, assets, etc.) excluded from triggering CI
+- Project positioned as vibe-coding (AI-assisted development) educational showcase
+- README rewritten with architecture, AI workflow, build instructions
+- Mermaid diagrams added to documentation
+- Forbidden-to-read list expanded in .clinerules
 
 ## 🟢 CONTEXT
-- test-build MCP server: configure + build + test = OK
-- Ready to implement changes to `.github/workflows/build.yml`
+- Created: LICENSE (MIT), CHANGELOG.md, docs/ARCHITECTURE.md, docs/AI_WORKFLOW.md
+- Rewritten: README.md
+- Updated: .clinerules (forbidden files), dev-journal.md, progress.md
+- Committed, push pending
+- Next task: main menu scene
