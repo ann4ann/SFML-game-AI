@@ -16,6 +16,7 @@
 - [x] Catch2 test infrastructure — smoke test, BUILD_TESTING option
 - [x] Unit tests for Movement, Collision, Score, Spawn systems — 14 tests, pure functions extracted
 - [x] GitHub Actions CI workflow — push/PR triggers, manual dispatch, Ubuntu 26.04, SFML 3.0 via apt
+- [x] CI cycle test — break test → CI red → fix → CI green → trigger restored
 
 ## Backlog
 1. Main menu scene
