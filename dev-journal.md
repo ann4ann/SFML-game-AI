@@ -87,3 +87,13 @@
 ### Issues / Lessons
 - `os.environ.copy()` for test mcp is required — overriding PATH with a hardcoded string breaks cmake/ctest lookup
 
+## 2026-07-26 - GitHub Actions CI workflow
+### Done
+- Created configuration file for CI/CD: push to stable branches, PR to all branches, manual dispatch
+- Added condition for MinGW paths for cross-platform compatibility
+- Runner: `ubuntu-26.04` with SFML 3.0 via apt
+
+### Why it matters / What's next
+- Every push/PR now automatically builds and runs all 14 tests on Linux CI
+- Next: main menu scene, Windows CI matrix
+

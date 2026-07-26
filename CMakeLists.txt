@@ -5,9 +5,11 @@ project(space-shooter VERSION 0.1.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Point to SFML cmake configs in UCRT64
-list(APPEND CMAKE_PREFIX_PATH "C:/msys64/ucrt64")
-set(SFML_DIR "C:/msys64/ucrt64/lib/cmake/SFML")
+# Point to SFML cmake configs in UCRT64 (Windows only)
+if(WIN32)
+    list(APPEND CMAKE_PREFIX_PATH "C:/msys64/ucrt64")
+    set(SFML_DIR "C:/msys64/ucrt64/lib/cmake/SFML")
+endif()
 
 # Find SFML 3.0 (MinGW)
 find_package(SFML 3.0 COMPONENTS Graphics Window System Audio Network REQUIRED)
