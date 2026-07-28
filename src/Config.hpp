@@ -43,6 +43,17 @@ namespace enemy {
     constexpr int   hp             = 2;       ///< Hit points
 } // namespace enemy
 
+/// @brief Zigzag enemy settings.
+namespace zigzag_enemy {
+    constexpr float size_x    = 64.0f;    ///< Sprite width (px)
+    constexpr float size_y    = 64.0f;    ///< Sprite height (px)
+    constexpr float speed     = 150.0f;   ///< Downward speed (px/s)
+    constexpr int   hp        = 2;        ///< Hit points
+    constexpr float amplitude = 80.0f;    ///< Horizontal oscillation radius (px)
+    constexpr float frequency = 2.0f;     ///< Oscillation speed (Hz)
+    constexpr float spawn_chance = 0.3f;  ///< Probability (0..1) of spawning zigzag vs regular enemy
+} // namespace zigzag_enemy
+
 /// @brief Score settings.
 namespace score {
     constexpr int points_per_kill = 10;  ///< Points awarded per enemy destroyed

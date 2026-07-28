@@ -8,6 +8,7 @@
 #include "systems/CollisionSystem.hpp"
 #include "systems/ExplosionAnimationSystem.hpp"
 #include "systems/GameOverSystem.hpp"
+#include "systems/ZigzagSystem.hpp"
 
 Game::Game(unsigned int width, unsigned int height, const std::string& title)
     : window_(sf::VideoMode({width, height}), title)
@@ -155,6 +156,7 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
     cm_.register_component<BulletTag>();
     cm_.register_component<Lifetime>();
     cm_.register_component<ExplosionAnim>();
+    cm_.register_component<Zigzag>();
 
     // --- Create player ---
     create_player();
@@ -235,6 +237,21 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
                   << "using fallback rectangle.\n";
     }
 
+    // Try to load zigzag enemy texture for sprite rendering
+    // Generated 2026-07-28 with prompt: "A hostile pixel art alien with a serpentine or snake-like
+    // design, top-down view, electric green and dark purple colors, zigzag pattern on body,
+    // transparent background"
+    if (zigzag_texture_.loadFromFile("assets/imgs/enemy_zigzag.png"))
+    {
+        zigzag_texture_.setSmooth(true);
+        zigzag_tex_shared_ = std::make_shared<sf::Texture>(zigzag_texture_);
+    }
+    else
+    {
+        sf::err() << "Warning: Could not load zigzag enemy texture 'assets/imgs/enemy_zigzag.png', "
+                  << "using fallback rectangle.\n";
+    }
+
     systems_.push_back(std::make_unique<EnemySpawnSystem>(
         cm_,
         static_cast<float>(screen_width_),
@@ -242,7 +259,9 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         &next_entity_id_,
         config::enemy::spawn_interval,
         config::enemy::speed,
-        enemy_tex_shared_
+        enemy_tex_shared_,
+        zigzag_tex_shared_,
+        config::zigzag_enemy::spawn_chance
     ));
 
     // Try to load explosion spritesheet for animation
@@ -259,6 +278,8 @@ Game::Game(unsigned int width, unsigned int height, const std::string& title)
         sf::err() << "Warning: Could not load explosion spritesheet 'assets/imgs/explosion_sheet.png', "
                   << "no explosion animation will play.\n";
     }
+
+    systems_.push_back(std::make_unique<ZigzagSystem>(cm_));
 
     systems_.push_back(std::make_unique<MovementSystem>(cm_));
 
