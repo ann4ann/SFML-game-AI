@@ -5,6 +5,7 @@
 - [ ] Main menu scene
 
 ## Completed
+- [x] Zigzag enemy type — sine-wave movement, Zigzag component, ZigzagSystem, serpentine sprite (AI-generated enemy_zigzag.png, 30% spawn chance)
 - [x] Repository documentation overhaul — LICENSE, CHANGELOG, README, ARCHITECTURE, AI_WORKFLOW, .clinerules
 - [x] CI optimization — Fixed duplication of CI workflow launch for PR and merge, added `paths-ignore`
 - [x] CI cycle test
