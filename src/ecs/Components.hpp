@@ -94,6 +94,24 @@ struct Health : public Component {
     explicit Health(int hp_) : hp(hp_) {}
 };
 
+/// @brief Component for zigzag (sine-wave) movement pattern.
+/// Stores oscillation parameters and elapsed time.
+/// ZigzagSystem updates velocity.x based on the sine wave.
+struct Zigzag : public Component {
+    float elapsed   = 0.0f;   ///< Accumulated time for sine calculation.
+    float amplitude = 80.0f;  ///< Horizontal oscillation radius (px).
+    float frequency = 2.0f;   ///< Oscillation speed (Hz).
+    float base_x    = 0.0f;   ///< Center X position at spawn.
+
+    Zigzag() = default;
+
+    /// @param ampl    Oscillation amplitude in pixels.
+    /// @param freq    Oscillation frequency in Hz.
+    /// @param baseX   Center X position.
+    Zigzag(float ampl, float freq, float baseX)
+        : amplitude(ampl), frequency(freq), base_x(baseX) {}
+};
+
 /// @brief Frame-based animation component for explosion spritesheets.
 /// Animates through frames of a horizontally-tiled spritesheet.
 /// The entity is automatically removed when animation completes.

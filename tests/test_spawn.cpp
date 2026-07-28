@@ -15,11 +15,12 @@ TEST_CASE("EnemySpawnSystem spawns one enemy after interval", "[spawn]")
     cm.register_component<EnemyTag>();
     cm.register_component<Health>();
     cm.register_component<Shape>();
+    cm.register_component<Zigzag>();
 
     EntityId nextId = 1;
 
-    // Spawn interval = 1.0s, speed = 150.0, screen 800x600
-    EnemySpawnSystem system(cm, 800.0f, 600.0f, &nextId, 1.0f, 150.0f, nullptr);
+    // Spawn interval = 1.0s, speed = 150.0, screen 800x600, spawnChance=0 → only regular enemies
+    EnemySpawnSystem system(cm, 800.0f, 600.0f, &nextId, 1.0f, 150.0f, nullptr, nullptr, 0.0f);
 
     // Update with less than interval — no spawn
     system.update(0.5f);
@@ -40,13 +41,14 @@ TEST_CASE("Spawned enemy has correct components and starting position", "[spawn]
     cm.register_component<EnemyTag>();
     cm.register_component<Health>();
     cm.register_component<Shape>();
+    cm.register_component<Zigzag>();
 
     EntityId nextId = 1;
 
     float screenW = 800.0f;
     float screenH = 600.0f;
 
-    EnemySpawnSystem system(cm, screenW, screenH, &nextId, 0.5f, 150.0f, nullptr);
+    EnemySpawnSystem system(cm, screenW, screenH, &nextId, 0.5f, 150.0f, nullptr, nullptr, 0.0f);
 
     // Force a spawn
     system.update(1.0f);
@@ -92,10 +94,11 @@ TEST_CASE("EnemySpawnSystem spawns multiple enemies over time", "[spawn]")
     cm.register_component<EnemyTag>();
     cm.register_component<Health>();
     cm.register_component<Shape>();
+    cm.register_component<Zigzag>();
 
     EntityId nextId = 1;
 
-    EnemySpawnSystem system(cm, 800.0f, 600.0f, &nextId, 1.0f, 150.0f, nullptr);
+    EnemySpawnSystem system(cm, 800.0f, 600.0f, &nextId, 1.0f, 150.0f, nullptr, nullptr, 0.0f);
 
     // 3 updates of 1s each with 1s interval → 3 spawns
     system.update(1.0f);

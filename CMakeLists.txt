@@ -24,6 +24,7 @@ add_executable(space-shooter
     src/systems/CollisionSystem.cpp
     src/systems/ExplosionAnimationSystem.cpp
     src/systems/GameOverSystem.cpp
+    src/systems/ZigzagSystem.cpp
 )
 
 # Add include directories

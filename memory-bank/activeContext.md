@@ -2,18 +2,19 @@
 > **Purpose**:  Context of the current task only
 
 ## 🔴 CRITICAL
-- **Current task**: Repository documentation overhaul for public portfolio demo
-- **Branch**: `feature/project-documentation`
+- **Current task**: Add zigzag enemy type with sprite
+- **Branch**: `feature/zigzag-enemy`
 
 ## 🟡 ACTIVE DECISIONS
-- Project positioned as vibe-coding (AI-assisted development) educational showcase
-- README rewritten with architecture, AI workflow, build instructions
-- Mermaid diagrams added to documentation
-- Forbidden-to-read list expanded in .clinerules
+- New `Zigzag` component stores oscillation params (elapsed, amplitude, frequency, base_x)
+- New `ZigzagSystem` updates velocity.x via sine wave; MovementSystem applies it
+- EnemySpawnSystem rolls 30% chance for zigzag vs regular enemy
+- New sprite generated: `enemy_zigzag.png`
 
 ## 🟢 CONTEXT
-- Created: LICENSE (MIT), CHANGELOG.md, docs/ARCHITECTURE.md, docs/AI_WORKFLOW.md
-- Rewritten: README.md
-- Updated: .clinerules (forbidden files), dev-journal.md, progress.md
-- Committed, push pending
-- Next task: main menu scene
+- Config: `config::zigzag_enemy` namespace added
+- Component: `Zigzag` struct added
+- System: `ZigzagSystem` created
+- EnemySpawnSystem: modified to spawn zigzag variant
+- Game: texture loading, component registration, system registration
+- Build verified
