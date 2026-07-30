@@ -1,5 +1,7 @@
 # AI-Assisted Development Workflow
 
+[![🇷🇺 Русский](https://img.shields.io/badge/Language-Russian-blue)](AI_WORKFLOW.ru.md) | [![🇬🇧 English](https://img.shields.io/badge/Language-English-green)](AI_WORKFLOW.md)
+
 > This document describes how AI tools (Cline, MCP servers) were used to develop this game. It serves as both documentation and a teaching resource for **vibe-coding** — AI-assisted software development.
 
 ## What is Vibe-Coding?
@@ -68,10 +70,13 @@ MCP (Model Context Protocol) servers extend the AI's capabilities. This project 
 graph TD
     A[Cline AI Agent] -->|MCP Protocol| B[git-ops]
     A -->|MCP Protocol| C[image-gen]
-    A -->|MCP Protocol| D[build-test]
-    B --> E[Git Repository]
-    C --> F[OpenAI API / Replicate]
-    D --> G[CMake + CTest]
+    A -->|MCP Protocol| D[sound-gen]
+    A -->|MCP Protocol| E[build-test]
+    B --> F[Git Repository]
+    C --> G[GenAPI/Huggingface API]
+    D --> H[Procedural generation]
+    E --> I[CMake + CTest]
+
 ```
 
 ### git-ops
@@ -82,7 +87,7 @@ graph TD
 ### image-gen
 - **Tools**: `generate_image`
 - **Purpose**: Procedural pixel-art generation (Flux-2 model)
-- **Integration**: Calls external AI image API (OpenAI / Replicate) to generate textures
+- **Integration**: Calls external AI image API (GenAPI/Huggingface) to generate textures
 - **Assets generated**: player ship, enemy drone, starfield, bullets, explosion spritesheet, icons
 
 ### sound-gen
