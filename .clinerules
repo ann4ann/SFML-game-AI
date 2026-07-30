@@ -16,22 +16,28 @@
 - Commit messages must follow Conventional Commits: feat:, fix:, docs:, test:, etc.
 
 ## Feature Development
+- Depending on the number of feature implementation stages (at the end of each stage, a successful build should reflect the changes in the program):
+    - If the feature is implemented in a single stage, run the workflow sequentially without repeats or skips (1-6)
+    - If the feature has multiple stages, complete steps 4.1-4.3 to implement each stage.
 ### Workflow
 1. **Create a feature branch** using MCP git-ops (`create_branch`), name pattern: `feature/<feature-name>`
 2. **Update `activeContext.md`** with the new feature context
-3. **Read `PROJECT_CONTEXT.md` first** — only then read specific source files for edits (never as reading sources)
-4. **Implement** — details for different cases are below.
-5. **Build and test** after each logical step — run build-test MCP server
-6. **Commit** intermediately: 
-- if feature has multiple stages (at the end of each, a successful build should show changes in the program) make a separate commit for each; 
-- when the feature is successfully completed; 
-7. **After feature completion**:  update `dev-journal.md`, `progress.md`, `activeContext.md`, then final commit + push
+3. **Read `PROJECT_CONTEXT.md` first** — only then read specific source files for edits as in `Reading Rules` (never as reading sources)
+4. **Implement stage**:
+    4.1 **Write the code** - depends on the feature type, see below
+    4.2 **Build and test** run build-test MCP server (`full_check`)
+    4.3 **Commit changes** using MCP git-ops (`commit`)
+5. **After feature completion**  update these files: `dev-journal.md`, `progress.md`, `activeContext.md`
+6. **Final actions**: commit + push
 
-#### Cpp project feature
-- **Implement** — add components to `Components.hpp`, register in `Game` constructor, add system in `src/systems/`, add `.cpp` to `CMakeLists.txt`
+#### Cpp project feature type
+- **Write the code** — add components to `Components.hpp`, register in `Game` constructor, add system in `src/systems/`, add `.cpp` to `CMakeLists.txt`
 
-#### MCP (python) feature
-- **Implement** — use server.py and README.md in the folder of the corresponding MCP server in `mcp-servers`
+#### MCP (python) feature type
+- **Write the code** — use server.py and README.md in the folder of the corresponding MCP server in `mcp-servers`, add server to `cline_mcp_settings.json`
+
+#### Documentation feature type
+- Does not change any code and does not require build-test checks. However, after completing each stage, a commit is also required.
 
 ## Memory-Bank Protocol
 - **Context of the current task** `activeContext.md`: max 35 lines, for current task only, use 🔴🟡🟢 markers
