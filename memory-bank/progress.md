@@ -5,6 +5,7 @@
 - [ ] Main menu scene
 
 ## Completed
+- [x] README/AI_WORKFLOW now has Russian translations
 - [x] Zigzag enemy type — sine-wave movement, Zigzag component, ZigzagSystem, serpentine sprite (AI-generated enemy_zigzag.png, 30% spawn chance)
 - [x] Repository documentation overhaul — LICENSE, CHANGELOG, README, ARCHITECTURE, AI_WORKFLOW, .clinerules
 - [x] CI optimization — Fixed duplication of CI workflow launch for PR and merge, added `paths-ignore`
@@ -17,9 +18,6 @@
 - [x] Game Over state — enemy bottom-boundary + player-enemy collision, dark red nebula background, GAME OVER + final score display
 - [x] Window icon — pixel-art icon, set via sf::Image + setIcon
 - [x] Bullet sprite — textured sprite (AI-generated bullet_bolt.png)
-- [x] Explosion animation — 4-frame spritesheet, ExplosionAnim component, ExplosionAnimationSystem, magic numbers in config
-- [x] Sound effects integration — laser on shoot, hit on damage, explosion on destruction (enemy HP=2)
-- [x] Sound-gen MCP server — procedural audio (5 sound types), README
 
 ## Backlog
 1. Main menu scene

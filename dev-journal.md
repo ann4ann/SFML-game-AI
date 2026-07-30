@@ -104,3 +104,14 @@
 - Documentation clearly shows both game architecture and AI-assisted development process
 - Next: main menu scene
 
+## 2026-07-30 - Documentation final fixes, gameplay video, Russian translation
+### Done
+- Updated Feature Development workflow in `.clinerules`
+- Added gameplay video to README
+- Reorganized README and AI_WORKFLOW
+- Created Russian translations with language switchers (badges)
+
+### Why it matters / What's next
+- Project now fully bilingual (RU/EN) with proper navigation
+- Video demonstrates gameplay in action on project page
+
