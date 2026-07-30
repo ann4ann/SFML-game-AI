@@ -23,33 +23,16 @@ flowchart TD
 
 ## Key Components
 
-### 1. Memory Bank — Project Context for AI
+### 1. `.clinerules` — AI Agent Configuration
 
-The **Memory Bank** is a set of Markdown files that give the AI agent persistent context across sessions:
+This file defines rules for the AI agent, with the following priorities:
+- **Feature development workflow** — step-by-step process for implementing features
+- **Token optimization strategies** — critical rules for efficient AI context usage
+- **MCP server rules** — asset generation, git operations, and build-test integration
+- **Coding conventions** — C++17, naming, smart pointers
+- **Commit message format** — Conventional Commits
 
-| File | Purpose |
-|------|---------|
-| `activeContext.md` | Current task, active decisions, context markers (🔴🟡🟢) |
-| `productContext.md` | Stable project overview (never changes) |
-| `progress.md` | Global status: in-progress, completed, backlog, known issues |
-| `systemPatterns-core.md` | Architecture invariants (ECS-lite design) |
-| `systemPatterns-currentSet.md` | Current component/system inventory |
-| `systemPatterns-details.md` | Non-critical patterns and API notes |
-
-### 2. `.clinerules` — AI Agent Configuration
-
-This file defines rules for the AI agent, including:
-- Coding conventions (C++17, naming, smart pointers)
-- Feature development workflow
-- Asset generation rules
-- Commit message format (Conventional Commits)
-- Token optimization strategies
-
-### 3. `dev-journal.md` — Development Log
-
-A daily log of what was done, why it matters, and lessons learned. This serves as both project history and a teaching resource showing the real development process.
-
-### 4. `PROJECT_CONTEXT.md` — Single Source of Truth
+### 2. `PROJECT_CONTEXT.md` — Single Source of Truth
 
 A comprehensive document that the AI reads first before any implementation. It contains:
 - Build commands
@@ -59,6 +42,23 @@ A comprehensive document that the AI reads first before any implementation. It c
 - Conventions
 - Git workflow
 - MCP server references
+
+### 3. Memory Bank — Project Context for AI
+
+Persistent AI context across sessions:
+
+| File | Purpose |
+|------|---------|
+| `activeContext.md` | Current task, active decisions |
+| `productContext.md` | Stable project overview |
+| `progress.md` | Global status of nearest tasks |
+| `systemPatterns-core.md` | Architecture invariants (ECS-lite design) |
+| `systemPatterns-currentSet.md` | Current component/system inventory |
+| `systemPatterns-details.md` | Non-critical patterns |
+
+### 4. `dev-journal.md` — Development Log
+
+A daily log of what was done, why it matters, and lessons learned. This serves as both project history and a teaching resource showing the real development process.
 
 ## MCP Servers — AI Tool Integration
 
