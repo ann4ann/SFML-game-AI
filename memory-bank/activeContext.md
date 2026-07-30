@@ -2,19 +2,16 @@
 > **Purpose**:  Context of the current task only
 
 ## 🔴 CRITICAL
-- **Current task**: Add zigzag enemy type with sprite
-- **Branch**: `feature/zigzag-enemy`
+- **Current task**: Project final fixes — documentation reorganization, video, Russian translations
+- **Branch**: `feature/project-final-fixes`
 
 ## 🟡 ACTIVE DECISIONS
-- New `Zigzag` component stores oscillation params (elapsed, amplitude, frequency, base_x)
-- New `ZigzagSystem` updates velocity.x via sine wave; MovementSystem applies it
-- EnemySpawnSystem rolls 30% chance for zigzag vs regular enemy
-- New sprite generated: `enemy_zigzag.png`
+- README.md reorganized: AI Workflow moved before Architecture
+- docs/AI_WORKFLOW.md restructured: .clinerules → PROJECT_CONTEXT.md → Memory Bank → dev-journal
+- Language switcher added: [🇷🇺 Русский] / [🇬🇧 English] in both README and AI_WORKFLOW
+- Separate Russian translation files: README.ru.md, docs/AI_WORKFLOW.ru.md
 
 ## 🟢 CONTEXT
-- Config: `config::zigzag_enemy` namespace added
-- Component: `Zigzag` struct added
-- System: `ZigzagSystem` created
-- EnemySpawnSystem: modified to spawn zigzag variant
-- Game: texture loading, component registration, system registration
-- Build verified
+- Gameplay video added to README
+- Feature Development workflow updated in .clinerules
+- Documentation type: no code changes, no build-test required
