@@ -6,7 +6,7 @@
 ![C++17](https://img.shields.io/badge/C++17-00599C?logo=c%2B%2B)
 ![SFML 3.0](https://img.shields.io/badge/SFML-3.0-8CC445)
 ![CMake](https://img.shields.io/badge/CMake-064F8C?logo=cmake)
-![Platform](https://img.shields.io/badge/Windows%20|%20Linux%20|%20macOS-blue)
+![Platform](https://img.shields.io/badge/-Windows%20|%20Linux-blue)
 ![Vibe-Coded](https://img.shields.io/badge/Vibe--Coded-AI--Assisted-ff69b4)
 
 > 2D космический шутер, созданный с использованием **vibe-coding (AI-assisted разработки)** на C++17 и SFML 3.0.
@@ -22,9 +22,9 @@
 |----------|-----------|
 | ![Скриншот геймплея](assets/screenshots/gameplay.png) | ![Скриншот Game Over](assets/screenshots/game_over.png) |
 
-### Видео геймплея
+**Видео геймплея**
 
-<video src="assets/screenshots/gameplay_video.mp4" controls width="640"></video>
+[▶️ Посмотреть видео](assets/screenshots/gameplay_video.mp4)
 
 ---
 
@@ -96,32 +96,6 @@ process_events() → update(dt) → render()
 | **Game** | Оркестратор: владеет ComponentManager, системами, ассетами |
 
 **[📖 Полная документация архитектуры →](docs/ARCHITECTURE.md)**
-
-### Список компонентов
-
-| Компонент | Поля | Роль |
-|-----------|------|------|
-| `Transform` | `sf::Vector2f position` | Позиция в мире |
-| `Velocity` | `sf::Vector2f velocity` | Скорость в секунду |
-| `Sprite` | `shared_ptr<sf::Texture>`, `unique_ptr<sf::Sprite>` | Текстурированный визуал |
-| `Shape` | `sf::RectangleShape rect` | Fallback / хитбокс |
-| `PlayerTag` | *(маркер)* | Идентифицирует игрока |
-| `EnemyTag` | *(маркер)* | Идентифицирует врагов |
-| `BulletTag` | *(маркер)* | Идентифицирует пули |
-| `Health` | `int hp` | Очки здоровья |
-| `Lifetime` | `float remaining` | Таймер автоудаления |
-| `ExplosionAnim` | Покадровые данные анимации | Спрайтшит-анимация |
-
-### Список систем
-
-| # | Система | Ответственность |
-|---|---------|-----------------|
-| 1 | `PlayerMovementSystem` | Ввод с клавиатуры, нормализация диагоналей, стрельба |
-| 2 | `EnemySpawnSystem` | Спавн по таймеру (интервал 2 с) |
-| 3 | `MovementSystem` | `position += velocity × dt` |
-| 4 | `CollisionSystem` | AABB-детекция, подсчёт очков, взрывы |
-| 5 | `BulletCleanupSystem` | Удаление пуль за экраном / с истёкшим временем |
-| 6 | `ExplosionAnimationSystem` | Покадровая анимация |
 
 ---
 
