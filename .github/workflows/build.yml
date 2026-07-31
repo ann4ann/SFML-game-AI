@@ -4,23 +4,27 @@ on:
   push:
     branches: [ "release/**" ]
     paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.gitignore'
-      - '.gitattributes'
-      - 'LICENSE'
       - 'assets/**'
       - 'mcp-servers/**'
+      - 'build.yml'
+      - 'docs/**'
+      - '**.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.clinerules'
+      - 'LICENSE'
   pull_request:
     branches: [ "**" ]
     paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.gitignore'
-      - '.gitattributes'
-      - 'LICENSE'
       - 'assets/**'
       - 'mcp-servers/**'
+      - 'build.yml'
+      - 'docs/**'
+      - '**.md'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.clinerules'
+      - 'LICENSE'
   workflow_dispatch:
 
 concurrency:

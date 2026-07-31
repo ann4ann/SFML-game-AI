@@ -6,7 +6,7 @@
 ![C++17](https://img.shields.io/badge/C++17-00599C?logo=c%2B%2B)
 ![SFML 3.0](https://img.shields.io/badge/SFML-3.0-8CC445)
 ![CMake](https://img.shields.io/badge/CMake-064F8C?logo=cmake)
-![Platform](https://img.shields.io/badge/Windows%20|%20Linux%20|%20macOS-blue)
+![Platform](https://img.shields.io/badge/-Windows%20|%20Linux-blue)
 ![Vibe-Coded](https://img.shields.io/badge/Vibe--Coded-AI--Assisted-ff69b4)
 
 > 2D космический шутер, созданный с использованием **vibe-coding (AI-assisted разработки)** на C++17 и SFML 3.0.
@@ -22,9 +22,9 @@
 |----------|-----------|
 | ![Скриншот геймплея](assets/screenshots/gameplay.png) | ![Скриншот Game Over](assets/screenshots/game_over.png) |
 
-### Видео геймплея
+**Видео геймплея**
 
-<video src="assets/screenshots/gameplay_video.mp4" controls width="640"></video>
+[▶️ Посмотреть видео](assets/screenshots/gameplay_video.mp4)
 
 ---
 
@@ -97,32 +97,6 @@ process_events() → update(dt) → render()
 
 **[📖 Полная документация архитектуры →](docs/ARCHITECTURE.md)**
 
-### Список компонентов
-
-| Компонент | Поля | Роль |
-|-----------|------|------|
-| `Transform` | `sf::Vector2f position` | Позиция в мире |
-| `Velocity` | `sf::Vector2f velocity` | Скорость в секунду |
-| `Sprite` | `shared_ptr<sf::Texture>`, `unique_ptr<sf::Sprite>` | Текстурированный визуал |
-| `Shape` | `sf::RectangleShape rect` | Fallback / хитбокс |
-| `PlayerTag` | *(маркер)* | Идентифицирует игрока |
-| `EnemyTag` | *(маркер)* | Идентифицирует врагов |
-| `BulletTag` | *(маркер)* | Идентифицирует пули |
-| `Health` | `int hp` | Очки здоровья |
-| `Lifetime` | `float remaining` | Таймер автоудаления |
-| `ExplosionAnim` | Покадровые данные анимации | Спрайтшит-анимация |
-
-### Список систем
-
-| # | Система | Ответственность |
-|---|---------|-----------------|
-| 1 | `PlayerMovementSystem` | Ввод с клавиатуры, нормализация диагоналей, стрельба |
-| 2 | `EnemySpawnSystem` | Спавн по таймеру (интервал 2 с) |
-| 3 | `MovementSystem` | `position += velocity × dt` |
-| 4 | `CollisionSystem` | AABB-детекция, подсчёт очков, взрывы |
-| 5 | `BulletCleanupSystem` | Удаление пуль за экраном / с истёкшим временем |
-| 6 | `ExplosionAnimationSystem` | Покадровая анимация |
-
 ---
 
 ## CI/CD воркфлоу
@@ -181,42 +155,50 @@ AI-SFML-game/
 | SFML | 3.0 | Graphics, Window, System, Audio, Network |
 | Catch2 | 3.4.0 | Опционально, для тестов (автозагрузка) |
 
-### Windows (с MinGW)
+### Windows (MSYS2 UCRT64)
 
 ```bash
-# Установите MSYS2 UCRT64: https://www.msys2.org/
-# Установите SFML:
-pacman -S mingw-w64-ucrt-x86_64-sfml
+# 1. Установите MSYS2 UCRT64: https://www.msys2.org/
+# 2. Откройте "MSYS2 UCRT64" из меню Пуск, затем выполните:
+pacman -Syu                              # Обновление базы пакетов
+pacman -S mingw-w64-ucrt-x86_64-sfml     # SFML 3.0
+pacman -S mingw-w64-ucrt-x86_64-cmake    # CMake
+pacman -S mingw-w64-ucrt-x86_64-gcc      # GCC компилятор
 
-# Сборка и запуск
+# 3. Клонируйте репозиторий и перейдите в папку проекта
+git clone https://github.com/ann4ann/SFML-game-AI.git
+cd SFML-game-AI
+
+# 4. Сборка (выполнять из корневой папки проекта)
 cmake -B build -G "MinGW Makefiles"
 cmake --build build
+
+# 5. Запуск (исполняемый файл находится в build/space-shooter.exe)
 ./build/space-shooter.exe
 ```
 
-### Linux (Ubuntu/Debian)
+> **Примечание:** В `CMakeLists.txt` ожидается SFML по пути `C:/msys64/ucrt64`. Если вы установили MSYS2 в другую папку, обновите пути в `CMakeLists.txt` (строки 10–11).
+
+### Linux (Ubuntu 26.04+)
 
 ```bash
-# Установите SFML 3.0
-sudo apt-get install libsfml-dev
+# Установка зависимостей
+sudo apt-get update
+sudo apt-get install -y cmake g++ libsfml-dev
 
-# Сборка и запуск
+# Клонируйте репозиторий и перейдите в папку проекта
+git clone https://github.com/ann4ann/SFML-game-AI.git
+cd SFML-game-AI
+
+# Сборка (выполнять из корневой папки проекта)
 cmake -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
+
+# Запуск (исполняемый файл находится в build/space-shooter)
 ./build/space-shooter
 ```
 
-### macOS
-
-```bash
-# Установите SFML через Homebrew
-brew install sfml
-
-# Сборка и запуск
-cmake -B build -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
-./build/space-shooter
-```
+> **Для старых Ubuntu (24.04, 22.04):** пакет `libsfml-dev` предоставляет SFML 2.6, а не 3.0. Вам потребуется [собрать SFML 3.0 из исходников](https://www.sfml-dev.org/tutorials/3.0/start-linux.php) или обновиться до Ubuntu 26.04+.
 
 ### Запуск тестов
 
