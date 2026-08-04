@@ -6,7 +6,6 @@ on:
     paths-ignore:
       - 'assets/**'
       - 'mcp-servers/**'
-      - 'build.yml'
       - 'docs/**'
       - '**.md'
       - '.gitignore'
@@ -18,7 +17,6 @@ on:
     paths-ignore:
       - 'assets/**'
       - 'mcp-servers/**'
-      - 'build.yml'
       - 'docs/**'
       - '**.md'
       - '.gitignore'
